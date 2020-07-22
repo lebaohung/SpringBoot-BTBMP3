@@ -51,4 +51,14 @@ public class PlaylistControllerAPI {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+    @DeleteMapping("/delete/{id}")
+    public  ResponseEntity<PlayList> deletePlaylist(@PathVariable Long id){
+        Optional<PlayList> playList = playlistService.findById(id);
+        if (playList != null){
+            playlistService.remove(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
