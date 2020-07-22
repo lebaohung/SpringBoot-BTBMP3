@@ -11,6 +11,7 @@ public class Role {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column (nullable = false)
     private Long id;
 
     @Enumerated(EnumType.STRING)

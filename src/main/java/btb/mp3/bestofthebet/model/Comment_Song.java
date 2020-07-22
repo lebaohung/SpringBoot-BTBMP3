@@ -9,10 +9,16 @@ import java.util.Date;
 @Data
 @Table (name = "comment_song")
 public class Comment_Song {
+
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
+    @Column (nullable = false)
     private Long id;
+
+    @Column (nullable = false)
     private String content;
+
+    @Column (nullable = false)
     private Date date;
 
     @ManyToOne
