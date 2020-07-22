@@ -41,14 +41,14 @@ public class PlaylistControllerAPI {
         return new ResponseEntity<>(playList, HttpStatus.OK);
     }
 
-//    @PutMapping("/edit/{id}")
-//    public ResponseEntity<PlayList> editPlaylist(@PathVariable Long id, @RequestBody PlayList playList){
-//        Optional<PlayList> playList1 = playlistService.findById(id);
-//        if (playList1 != null){
-//            playList.setId(id);
-//            playlistService.save(playList);
-//            return  new ResponseEntity<>(playList, HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-//    }
+    @PutMapping("/edit/{id}")
+    public ResponseEntity<PlayList> editPlaylist(@PathVariable Long id, @RequestBody PlayList playList){
+        Optional<PlayList> playList1 = playlistService.findById(id);
+        if (playList1 != null){
+            playList.setId(id);
+            playlistService.save(playList);
+            return  new ResponseEntity<>(playList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 }
