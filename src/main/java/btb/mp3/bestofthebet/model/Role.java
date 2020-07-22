@@ -16,6 +16,4 @@ public class Role {
 
     @Column (nullable = false, length = 10)
     private String roleName;
-
-
 }
