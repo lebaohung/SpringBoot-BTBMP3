@@ -28,7 +28,7 @@ public class PlaylistControllerAPI {
     @GetMapping("/list/{id}")
     public ResponseEntity<PlayList> playlistID(@PathVariable Long id){
         Optional<PlayList> playList = playlistService.findById(id);
-        if (playList != null) {
+        if (playList.isPresent()) {
             playlistService.findById(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -44,7 +44,7 @@ public class PlaylistControllerAPI {
     @PutMapping("/edit/{id}")
     public ResponseEntity<PlayList> editPlaylist(@PathVariable Long id, @RequestBody PlayList playList){
         Optional<PlayList> playList1 = playlistService.findById(id);
-        if (playList1 != null){
+        if (playList1.isPresent()){
             playList.setId(id);
             playlistService.save(playList);
             return  new ResponseEntity<>(playList, HttpStatus.OK);
@@ -55,7 +55,7 @@ public class PlaylistControllerAPI {
     @DeleteMapping("/delete/{id}")
     public  ResponseEntity<PlayList> deletePlaylist(@PathVariable Long id){
         Optional<PlayList> playList = playlistService.findById(id);
-        if (playList != null){
+        if (playList.isPresent()){
             playlistService.remove(id);
             return new ResponseEntity<>(HttpStatus.OK);
         }
