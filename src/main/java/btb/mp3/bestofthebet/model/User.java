@@ -46,6 +46,12 @@ public class User {
 
     public User() {}
 
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+
+    }
+
     public User(@NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(max = 120) String password, String full_name, String phone_number, @NotBlank @Email @Size(max = 50) String email, boolean status, Date birthday, Date createDate) {
         this.username = username;
         this.password = password;
