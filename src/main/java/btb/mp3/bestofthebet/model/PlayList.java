@@ -26,4 +26,5 @@ public class PlayList {
 
     @Column (nullable = false)
     private Date createDate;
+
 }
