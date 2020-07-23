@@ -12,15 +12,27 @@ public class Song {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-
+    @Column (nullable = false)
     private Long id;
+
+    @Column (nullable = false)
     private String name;
+
     private Long likes;
     private Long views;
+
+    @Column (nullable = false)
     private Date creatDate;
+
+    private String songLink;
+    private String singer;
+    @Column (nullable = false)
     private String songImage;
+
     private String songAuthor;
     private String description;
+
+    @Column (nullable = false)
     private boolean status;
 
     @ManyToOne

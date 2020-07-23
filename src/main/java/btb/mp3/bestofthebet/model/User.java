@@ -1,6 +1,6 @@
 package btb.mp3.bestofthebet.model;
 
-/*import lombok.Data;*/
+//import lombok.Data;
 
 import org.hibernate.annotations.ColumnDefault;
 
