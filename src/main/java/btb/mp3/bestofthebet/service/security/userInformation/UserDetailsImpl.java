@@ -45,10 +45,10 @@ public class UserDetailsImpl implements UserDetails {
         return new UserDetailsImpl(
                 user.getId(),
                 user.getUsername(),
-                user.getEmail(),
-                user.getPassword(),
-                user.getPhone_number(),
                 user.getFull_name(),
+                user.getEmail(),
+                user.getPhone_number(),
+                user.getPassword(),
                 user.isStatus(),
                 user.getBirthday(),
                 user.getCreateDate(),

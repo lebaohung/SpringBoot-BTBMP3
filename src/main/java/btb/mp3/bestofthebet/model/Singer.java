@@ -14,7 +14,6 @@ public class Singer {
     @GeneratedValue (strategy = GenerationType.AUTO)
     @Column (nullable = false)
     private Long id;
-    @Column (nullable = false)
     private String name;
 
     @Column (nullable = false)

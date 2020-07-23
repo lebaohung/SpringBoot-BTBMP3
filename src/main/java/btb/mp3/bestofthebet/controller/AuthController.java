@@ -9,7 +9,7 @@ import btb.mp3.bestofthebet.model.response.JwtResponse;
 import btb.mp3.bestofthebet.model.response.MessageResponse;
 import btb.mp3.bestofthebet.repository.RoleRepository;
 import btb.mp3.bestofthebet.repository.UserRepository;
-/*import btb.mp3.bestofthebet.service.security.jwt.JwtUtils;*/
+import btb.mp3.bestofthebet.service.security.jwt.JwtUtils;
 import btb.mp3.bestofthebet.service.security.userInformation.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,7 +17,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -45,13 +44,7 @@ public class AuthController {
     PasswordEncoder encoder;
 
     @Autowired
-    public void setEncoder(PasswordEncoder encoder) {
-        this.encoder = encoder;
-    }
-
-
-/*    @Autowired
-    JwtUtils jwtUtils;*/
+    JwtUtils jwtUtils;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -63,8 +56,7 @@ public class AuthController {
         Authentication authentication = authenticationManager.authenticate(authToken);
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        /*String jwt = jwtUtils.generateJwtToken(authentication);*/
-        String jwt = null;
+        String jwt = jwtUtils.generateJwtToken(authentication);
 
         UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
         List<String> roles = userDetails.getAuthorities().stream()
@@ -74,8 +66,8 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                                     userDetails.getId(),
                                                                     userDetails.getUsername(),
-                                                                    userDetails.getEmail(),
                                                                     userDetails.getFullName(),
+                                                                    userDetails.getEmail(),
                                                                     userDetails.getPhoneNumber(),
                                                                     userDetails.isStatus(),
                                                                     userDetails.getBirthday(),
@@ -96,18 +88,15 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use !!!"));
         }
 
-        User user = new User(
-                signUpRequest.getUsername(),
-                /*encoder.encode(signUpRequest.getPassword()),*/
-                new BCryptPasswordEncoder().encode(signUpRequest.getPassword()),
-            /*    signUpRequest.getPassword(),*/
-                signUpRequest.getFullname(),
-                signUpRequest.getPhoneNumber(),
-                signUpRequest.getEmail(),
-                signUpRequest.isStatus(),
-                signUpRequest.getBirthday(),
-                signUpRequest.getCreateDate()
-        );
+        User user = new User();
+        user.setUsername(signUpRequest.getUsername());
+        user.setPassword(encoder.encode(signUpRequest.getPassword()));
+        user.setFull_name(signUpRequest.getFull_name());
+        user.setPhone_number(signUpRequest.getPhone_number());
+        user.setEmail(signUpRequest.getEmail());
+        user.setStatus(signUpRequest.isStatus());
+        user.setBirthday(signUpRequest.getBirthday());
+        user.setCreateDate(signUpRequest.getCreateDate());
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();

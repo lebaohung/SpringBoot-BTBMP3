@@ -1,6 +1,6 @@
 HELP.md
-build/
 .gradle
+build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
@@ -17,7 +17,7 @@ build/
 ### IntelliJ IDEA ###
 .idea
 *.iws
-*.iml
+*.imlgit
 *.ipr
 out/
 !**/src/main/**/out/
@@ -32,3 +32,6 @@ out/
 
 ### VS Code ###
 .vscode/
+gradlew.bat
+
+

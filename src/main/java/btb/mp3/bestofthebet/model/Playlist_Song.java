@@ -11,7 +11,7 @@ public class Playlist_Song {
 
     @Id
     @GeneratedValue (strategy = GenerationType.AUTO)
-
+    @Column (nullable = false)
     private Long id;
 
     @ManyToOne
