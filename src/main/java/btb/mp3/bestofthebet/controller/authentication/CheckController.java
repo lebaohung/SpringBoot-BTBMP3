@@ -1,4 +1,4 @@
-package btb.mp3.bestofthebet.controller;
+package btb.mp3.bestofthebet.controller.authentication;
 
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
