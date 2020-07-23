@@ -39,20 +39,20 @@ public class PlaylistControllerAPI {
         topSixView.add(playListView.get(5));
         return new ResponseEntity<List<PlayList>>(playlistService.sortView(), HttpStatus.OK);
     }
-//
-//    @GetMapping("/topLike")
-//    public ResponseEntity<List<PlayList>> topLike(){
-//        List<PlayList> playListLike = playlistService.sortLike();
-//        List<PlayList> topSixLike = new ArrayList<>();
-//        topSixLike.add(playListLike.get(0));
-//        topSixLike.add(playListLike.get(1));
-//        topSixLike.add(playListLike.get(2));
-//        topSixLike.add(playListLike.get(3));
-//        topSixLike.add(playListLike.get(4));
-//        topSixLike.add(playListLike.get(5));
-//        return new ResponseEntity<List<PlayList>>(playlistService.sortLike(), HttpStatus.OK);
-//    }
-//
+
+    @GetMapping("/topLike")
+    public ResponseEntity<List<PlayList>> topLike(){
+        List<PlayList> playListLike = playlistService.sortLike();
+        List<PlayList> topSixLike = new ArrayList<>();
+        topSixLike.add(playListLike.get(0));
+        topSixLike.add(playListLike.get(1));
+        topSixLike.add(playListLike.get(2));
+        topSixLike.add(playListLike.get(3));
+        topSixLike.add(playListLike.get(4));
+        topSixLike.add(playListLike.get(5));
+        return new ResponseEntity<List<PlayList>>(playlistService.sortLike(), HttpStatus.OK);
+    }
+
 //    @GetMapping("/topDate")
 //    public ResponseEntity<List<PlayList>> topDate(){
 //        List<PlayList> playListDate = playlistService.sortDate();
