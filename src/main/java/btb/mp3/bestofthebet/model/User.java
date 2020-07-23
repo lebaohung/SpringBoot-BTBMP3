@@ -36,6 +36,33 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<Role>();
+
+    public User() {}
+
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+
+    }
+
+    public User(@NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(max = 120) String password, String full_name, String phone_number, @NotBlank @Email @Size(max = 50) String email, boolean status, Date birthday, Date createDate) {
+        this.username = username;
+        this.password = password;
+        this.full_name = full_name;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.status = status;
+        this.birthday = birthday;
+        this.createDate = createDate;
+    }
+
     @Column (nullable = false, name="full_name")
     private String full_name;
 
