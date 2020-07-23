@@ -1,4 +1,4 @@
-package btb.mp3.bestofthebet.controller;
+package btb.mp3.bestofthebet.controller.authentication;
 
 import btb.mp3.bestofthebet.model.EnumRole;
 import btb.mp3.bestofthebet.model.Role;

@@ -12,14 +12,14 @@ public class JwtResponse {
     private String fullName;
     private String phoneNumber;
     private String email;
-    private boolean status;
+    private Boolean status;
     private Date birthday;
     private Date createDate;
     private List<String> roles;
 
     public JwtResponse(String token, Long id, String username,
                        String fullName, String email,
-                       String phoneNumber, boolean status,
+                       String phoneNumber, Boolean status,
                        Date birthday, Date createDate, List<String> roles) {
         this.token = token;
         this.id = id;
@@ -97,11 +97,11 @@ public class JwtResponse {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

@@ -2,10 +2,14 @@ package btb.mp3.bestofthebet.model;
 
 //import lombok.Data;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -25,27 +29,20 @@ public class User {
     @Column (nullable = false)
     private Long id;
 
-    /*    @NotBlank*/
     @Column (nullable = false)
+    @NotBlank
     @Size(min = 6, max = 30)
     private String username;
 
-/*    @Column (nullable = false)*/
-/*    @NotBlank*/
+    @NotBlank
     @Size(min = 60, max = 120)
     @Column(nullable = false)
     private String password;
 
-    public User(String username, String password){
-        this.username = username;
-        this.password = password;
-
-    }
-
-    @Column (nullable = false, name="full_name")
+    @Column (nullable = true)
     private String full_name;
 
-    @Column (nullable = false, name="phone_number")
+    @Column (nullable = true, name="phone_number")
     private String phone_number;
 
     @Column (nullable = false)
@@ -53,14 +50,14 @@ public class User {
     @Size(max = 50)
     private String email;
 
-    @Column (nullable = false)
-    private boolean status;
+    @Column(nullable = true)
+    private Boolean status;
 
     @Column (nullable = true)
     private Date birthday;
 
-    @Column (nullable = false)
-    private Date createDate;
+    @Column (name = "create_date", nullable = true, columnDefinition = "Timestamp default now()")
+    private Timestamp createDate;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -72,7 +69,7 @@ public class User {
 
     public User() {}
 
-    public User(String phone_number, String full_name, @NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(max = 120) String password, @NotBlank @Email @Size(max = 50) String email, boolean status, Date birthday, Date createDate) {
+    public User(String phone_number, String full_name, @NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(max = 120) String password, @NotBlank @Email @Size(max = 50) String email, Boolean status, Date birthday, Timestamp createDate) {
         this.username = username;
         this.full_name = full_name;
         this.password = password;
@@ -139,11 +136,11 @@ public class User {
         this.email = email;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -155,11 +152,11 @@ public class User {
         this.birthday = birthday;
     }
 
-    public Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 }

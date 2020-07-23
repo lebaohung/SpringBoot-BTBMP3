@@ -26,7 +26,7 @@ public class UserDetailsImpl implements UserDetails {
 
     private String email;
 
-    private boolean status;
+    private Boolean status;
 
     private Date birthday;
 
@@ -57,7 +57,7 @@ public class UserDetailsImpl implements UserDetails {
     }
 
     public UserDetailsImpl(Long id, String username, String fullName, String email, String phoneNumber,
-                           String password, boolean status, Date birthday, Date createDate,
+                           String password, Boolean status, Date birthday, Date createDate,
                            Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
@@ -125,11 +125,11 @@ public class UserDetailsImpl implements UserDetails {
         this.phoneNumber = phoneNumber;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 

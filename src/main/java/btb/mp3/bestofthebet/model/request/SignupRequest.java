@@ -7,6 +7,7 @@ import javax.persistence.Column;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import java.sql.Timestamp;
 import java.util.Date;
 import java.util.Set;
 
@@ -33,19 +34,19 @@ public class SignupRequest {
     private String email;
 
 /*    @NotBlank*/
-    private boolean status;
+    private Boolean status;
 
 /*    @NotBlank*/
     private Date birthday;
 
     @Column(nullable = false)
-    private Date createDate;
+    private Timestamp createDate;
 
     private Set<String> roles;
 
 /*    public SignupRequest() {}*/
 
-    public SignupRequest(String phone_number, @NotBlank @Size(max = 100) String full_name, @NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(min = 6, max = 120) String password, @NotBlank @Size(max = 50) @Email String email, @NotBlank boolean status, @NotBlank Date birthday, Date createDate) {
+    public SignupRequest(String phone_number, @NotBlank @Size(max = 100) String full_name, @NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(min = 6, max = 120) String password, @NotBlank @Size(max = 50) @Email String email, @NotBlank Boolean status, @NotBlank Date birthday, Timestamp createDate) {
         this.username = username;
         this.full_name = full_name;
         this.password = password;
@@ -96,11 +97,11 @@ public class SignupRequest {
         this.phone_number = phone_number;
     }
 
-    public boolean isStatus() {
+    public Boolean isStatus() {
         return status;
     }
 
-    public void setStatus(boolean status) {
+    public void setStatus(Boolean status) {
         this.status = status;
     }
 
@@ -112,11 +113,11 @@ public class SignupRequest {
         this.birthday = birthday;
     }
 
-    public Date getCreateDate() {
+    public Timestamp getCreateDate() {
         return createDate;
     }
 
-    public void setCreateDate(Date createDate) {
+    public void setCreateDate(Timestamp createDate) {
         this.createDate = createDate;
     }
 
