@@ -22,5 +22,8 @@ public class PlayList {
     private Long likes;
 
     @Column (nullable = false)
+    private String image;
+
+    @Column (nullable = false)
     private Date createDate;
 }

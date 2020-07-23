@@ -17,9 +17,8 @@ build/
 ### IntelliJ IDEA ###
 .idea
 *.iws
-*.iml
+*.imlgit
 *.ipr
-dev.env
 out/
 !**/src/main/**/out/
 !**/src/test/**/out/

@@ -1,6 +1,6 @@
 package btb.mp3.bestofthebet.model;
 
-/*import lombok.Data;*/
+//import lombok.Data;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -21,19 +21,46 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Long id;
 
+    /*    @NotBlank*/
     @Column (nullable = false)
-/*    @NotBlank*/
     @Size(min = 6, max = 30)
     private String username;
 
-    @Column (nullable = false)
+/*    @Column (nullable = false)*/
 /*    @NotBlank*/
-    @Size(max = 120)
+    @Size(min = 60, max = 120)
+    @Column(nullable = false)
     private String password;
+
+    public User(String username, String password){
+        this.username = username;
+        this.password = password;
+
+    }
+
+    @Column (nullable = false, name="full_name")
+    private String full_name;
+
+    @Column (nullable = false, name="phone_number")
+    private String phone_number;
+
+    @Column (nullable = false)
+    @Email
+    @Size(max = 50)
+    private String email;
+
+    @Column (nullable = false)
+    private boolean status;
+
+    @Column (nullable = true)
+    private Date birthday;
+
+    @Column (nullable = false)
+    private Date createDate;
 
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
@@ -43,39 +70,18 @@ public class User {
     )
     private Set<Role> roles = new HashSet<Role>();
 
-    public User(@NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(max = 120) String password, String full_name, String phone_number, @NotBlank @Email @Size(max = 50) String email, boolean status, Date birthday, Date createDate) {
+    public User() {}
+
+    public User(String phone_number, String full_name, @NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(max = 120) String password, @NotBlank @Email @Size(max = 50) String email, boolean status, Date birthday, Date createDate) {
         this.username = username;
-        this.password = password;
         this.full_name = full_name;
+        this.password = password;
         this.phone_number = phone_number;
         this.email = email;
         this.status = status;
         this.birthday = birthday;
         this.createDate = createDate;
     }
-
-    @Column (nullable = false, name="full_name")
-    private String full_name;
-
-    @Column (nullable = true, name="phone_number")
-    private String phone_number;
-
-    @Column (nullable = false)
-/*    @NotBlank*/
-    @Email
-    @Size(max = 50)
-    private String email;
-
-    @Column (nullable = false)
-    private boolean status;
-
-/*    @NotBlank*/
-    @Column (nullable = true)
-    private Date birthday;
-
-/*    @NotBlank*/
-    @Column (nullable = false)
-    private Date createDate;
 
     public Set<Role> getRoles() {
         return roles;

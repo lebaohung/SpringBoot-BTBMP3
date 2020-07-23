@@ -55,7 +55,6 @@ public class AuthController {
         );
         Authentication authentication = authenticationManager.authenticate(authToken);
 
-
         SecurityContextHolder.getContext().setAuthentication(authentication);
         String jwt = jwtUtils.generateJwtToken(authentication);
 
@@ -67,8 +66,8 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                                     userDetails.getId(),
                                                                     userDetails.getUsername(),
-                                                                    userDetails.getEmail(),
                                                                     userDetails.getFullName(),
+                                                                    userDetails.getEmail(),
                                                                     userDetails.getPhoneNumber(),
                                                                     userDetails.isStatus(),
                                                                     userDetails.getBirthday(),
@@ -89,16 +88,15 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use !!!"));
         }
 
-        User user = new User(
-                signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getFullname(),
-                signUpRequest.getPhoneNumber(),
-                signUpRequest.getEmail(),
-                signUpRequest.isStatus(),
-                signUpRequest.getBirthday(),
-                signUpRequest.getCreateDate()
-        );
+        User user = new User();
+        user.setUsername(signUpRequest.getUsername());
+        user.setPassword(encoder.encode(signUpRequest.getPassword()));
+        user.setFull_name(signUpRequest.getFull_name());
+        user.setPhone_number(signUpRequest.getPhone_number());
+        user.setEmail(signUpRequest.getEmail());
+        user.setStatus(signUpRequest.isStatus());
+        user.setBirthday(signUpRequest.getBirthday());
+        user.setCreateDate(signUpRequest.getCreateDate());
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();

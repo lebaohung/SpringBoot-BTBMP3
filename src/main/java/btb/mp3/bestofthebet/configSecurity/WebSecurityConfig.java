@@ -1,5 +1,5 @@
 package btb.mp3.bestofthebet.configSecurity;
-// tuan
+
 import btb.mp3.bestofthebet.service.security.jwt.AuthEntryPointJwt;
 import btb.mp3.bestofthebet.service.security.jwt.AuthTokenFilter;
 import btb.mp3.bestofthebet.service.security.userInformation.UserDetailsServiceImpl;
@@ -22,12 +22,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Autowired
     UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+
+    private PasswordEncoder passwordEncoder;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -61,5 +62,4 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
     }
-
 }

@@ -24,12 +24,16 @@ public class Song {
     @Column (nullable = false)
     private Date creatDate;
 
-    private String songImage;
-    private String songAuthor;
-    private String description;
-    private boolean status;
     private String songLink;
     private String singer;
+    @Column (nullable = false)
+    private String songImage;
+
+    private String songAuthor;
+    private String description;
+
+    @Column (nullable = false)
+    private boolean status;
 
     @ManyToOne
     private User user;

@@ -24,6 +24,7 @@ public class SignupRequest {
     @Size(max = 100)
     private String full_name;
 
+    @Size(max = 100)
     private String phone_number;
 
 /*    @NotBlank*/
@@ -42,37 +43,17 @@ public class SignupRequest {
 
     private Set<String> roles;
 
-    public SignupRequest() {}
+/*    public SignupRequest() {}*/
 
-    public SignupRequest(@NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(min = 6, max = 120) String password, @NotBlank @Size(max = 50) @Email String email, @NotBlank @Size(max = 100) String full_name, String phone_number, @NotBlank boolean status, @NotBlank Date birthday, Date createDate) {
+    public SignupRequest(String phone_number, @NotBlank @Size(max = 100) String full_name, @NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(min = 6, max = 120) String password, @NotBlank @Size(max = 50) @Email String email, @NotBlank boolean status, @NotBlank Date birthday, Date createDate) {
         this.username = username;
-        this.password = password;
-        this.email = email;
         this.full_name = full_name;
+        this.password = password;
         this.phone_number = phone_number;
+        this.email = email;
         this.status = status;
         this.birthday = birthday;
         this.createDate = createDate;
-    }
-
-    public String getFull_name() {
-        return full_name;
-    }
-
-    public void setFull_name(String full_name) {
-        this.full_name = full_name;
-    }
-
-    public String getPhone_number() {
-        return phone_number;
-    }
-
-    public void setPhone_number(String phone_number) {
-        this.phone_number = phone_number;
-    }
-
-    public void setRoles(Set<String> roles) {
-        this.roles = roles;
     }
 
     public String getUsername() {
@@ -99,19 +80,19 @@ public class SignupRequest {
         this.email = email;
     }
 
-    public String getFullname() {
+    public String getFull_name() {
         return full_name;
     }
 
-    public void setFullname(String full_name) {
+    public void setFull_name(String full_name) {
         this.full_name = full_name;
     }
 
-    public String getPhoneNumber() {
-        return phone_number;
+    public String getPhone_number() {
+        return this.phone_number;
     }
 
-    public void setPhoneNumber(String phoneNumber) {
+    public void setPhone_number(String phoneNumber) {
         this.phone_number = phone_number;
     }
 
@@ -143,7 +124,7 @@ public class SignupRequest {
         return roles;
     }
 
-    public void setRole(Set<String> role) {
+    public void setRoles(Set<String> roles) {
         this.roles = roles;
     }
 }
