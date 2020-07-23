@@ -1,4 +1,4 @@
-/*package btb.mp3.bestofthebet.controller.admin.crud;
+package btb.mp3.bestofthebet.controller.admin.crud;
 
 import btb.mp3.bestofthebet.exception.ResourceNotFoundException;
 import btb.mp3.bestofthebet.model.User;
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
+import java.util.Map;/**/
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -43,4 +43,4 @@ public class UserController {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
-}*/
+}
