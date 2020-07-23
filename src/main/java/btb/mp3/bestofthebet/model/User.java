@@ -21,7 +21,7 @@ import java.util.Set;
 public class User {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Long id;
 
@@ -33,7 +33,7 @@ public class User {
 /*    @Column (nullable = false)*/
 /*    @NotBlank*/
     @Size(min = 60, max = 120)
-    @Column(name = "password", nullable = false)
+    @Column(nullable = false)
     private String password;
 
     @ManyToMany(fetch = FetchType.LAZY)
@@ -66,11 +66,10 @@ public class User {
     @Column (nullable = false, name="full_name")
     private String full_name;
 
-    @Column (nullable = true, name="phone_number")
+    @Column (nullable = false, name="phone_number")
     private String phone_number;
 
     @Column (nullable = false)
-/*    @NotBlank*/
     @Email
     @Size(max = 50)
     private String email;
@@ -78,13 +77,32 @@ public class User {
     @Column (nullable = false)
     private boolean status;
 
-/*    @NotBlank*/
     @Column (nullable = true)
     private Date birthday;
 
-/*    @NotBlank*/
     @Column (nullable = false)
     private Date createDate;
+
+    @ManyToMany(fetch = FetchType.LAZY)
+    @JoinTable(
+            name = "user_roles",
+            joinColumns = @JoinColumn(name="user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
+    )
+    private Set<Role> roles = new HashSet<Role>();
+
+    public User() {}
+
+    public User(String phone_number, String full_name, @NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(max = 120) String password, @NotBlank @Email @Size(max = 50) String email, boolean status, Date birthday, Date createDate) {
+        this.username = username;
+        this.full_name = full_name;
+        this.password = password;
+        this.phone_number = phone_number;
+        this.email = email;
+        this.status = status;
+        this.birthday = birthday;
+        this.createDate = createDate;
+    }
 
     public Set<Role> getRoles() {
         return roles;
