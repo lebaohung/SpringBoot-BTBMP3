@@ -9,7 +9,6 @@ import btb.mp3.bestofthebet.model.response.JwtResponse;
 import btb.mp3.bestofthebet.model.response.MessageResponse;
 import btb.mp3.bestofthebet.repository.RoleRepository;
 import btb.mp3.bestofthebet.repository.UserRepository;
-/*import btb.mp3.bestofthebet.service.security.jwt.JwtUtils;*/
 import btb.mp3.bestofthebet.service.security.jwt.JwtUtils;
 import btb.mp3.bestofthebet.service.security.userInformation.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -89,17 +87,6 @@ public class AuthController {
             return ResponseEntity.badRequest()
                     .body(new MessageResponse("Error: Email is already in use !!!"));
         }
-
-/*        User user = new User(
-                signUpRequest.getUsername(),
-                encoder.encode(signUpRequest.getPassword()),
-                signUpRequest.getFull_name(),
-                signUpRequest.getEmail(),
-                signUpRequest.getPhone_number(),
-                signUpRequest.isStatus(),
-                signUpRequest.getBirthday(),
-                signUpRequest.getCreateDate()
-                );*/
 
         User user = new User();
         user.setUsername(signUpRequest.getUsername());
