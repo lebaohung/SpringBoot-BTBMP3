@@ -1,4 +1,3 @@
-/*
 package btb.mp3.bestofthebet.exception;
 
 import java.util.Date;
@@ -42,4 +41,3 @@ public class ErrorDetails {
         this.details = details;
     }
 }
-*/
