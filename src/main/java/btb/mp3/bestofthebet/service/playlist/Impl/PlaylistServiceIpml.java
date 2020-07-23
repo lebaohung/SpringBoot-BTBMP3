@@ -1,13 +1,14 @@
-package btb.mp3.bestofthebet.service.security.playlist.Impl;
+package btb.mp3.bestofthebet.service.playlist.Impl;
 
 import btb.mp3.bestofthebet.model.PlayList;
 import btb.mp3.bestofthebet.repository.playlist.PlaylistRepository;
-import btb.mp3.bestofthebet.service.security.playlist.PlaylistService;
+import btb.mp3.bestofthebet.service.playlist.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -24,6 +25,21 @@ public class PlaylistServiceIpml implements PlaylistService {
     @Override
     public Optional<PlayList> findById(Long id) {
         return playlistRepository.findById(id);
+    }
+
+    @Override
+    public List<PlayList> sortView() {
+        return playlistRepository.findAllByOrderByViewsDesc();
+    }
+
+    @Override
+    public List<PlayList> sortLike() {
+        return playlistRepository.findAllByOrderByLikesDesc();
+    }
+
+    @Override
+    public List<PlayList> sortDate() {
+        return playlistRepository.findAllByOrderByCreateDateDesc();
     }
 
     @Override
