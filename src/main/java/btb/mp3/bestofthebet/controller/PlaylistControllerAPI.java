@@ -53,18 +53,18 @@ public class PlaylistControllerAPI {
         return new ResponseEntity<List<PlayList>>(playlistService.sortLike(), HttpStatus.OK);
     }
 
-//    @GetMapping("/topDate")
-//    public ResponseEntity<List<PlayList>> topDate(){
-//        List<PlayList> playListDate = playlistService.sortDate();
-//        List<PlayList> topSixDate = new ArrayList<>();
-//        topSixDate.add(playListDate.get(0));
-//        topSixDate.add(playListDate.get(1));
-//        topSixDate.add(playListDate.get(2));
-//        topSixDate.add(playListDate.get(3));
-//        topSixDate.add(playListDate.get(4));
-//        topSixDate.add(playListDate.get(5));
-//        return new ResponseEntity<List<PlayList>>(playlistService.sortDate(), HttpStatus.OK);
-//    }
+    @GetMapping("/topDate")
+    public ResponseEntity<List<PlayList>> topDate(){
+        List<PlayList> playListDate = playlistService.sortDate();
+        List<PlayList> topSixDate = new ArrayList<>();
+        topSixDate.add(playListDate.get(0));
+        topSixDate.add(playListDate.get(1));
+        topSixDate.add(playListDate.get(2));
+        topSixDate.add(playListDate.get(3));
+        topSixDate.add(playListDate.get(4));
+        topSixDate.add(playListDate.get(5));
+        return new ResponseEntity<List<PlayList>>(playlistService.sortDate(), HttpStatus.OK);
+    }
 
     @GetMapping("/list/{id}")
     public ResponseEntity<PlayList> playlistID(@PathVariable Long id){
