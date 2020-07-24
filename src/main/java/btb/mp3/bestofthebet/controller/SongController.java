@@ -13,6 +13,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -44,8 +46,12 @@ public class SongController {
     // tao moi 1 bai hat
     @PostMapping("/{id}")
     /*@PreAuthorize("hasRole('ROLE_USER')")*/
-    public ResponseEntity<Void> CreateSong(@RequestBody Song song,@PathVariable("id") Long id) {
-          songService.save(song);
+    public ResponseEntity<Void> CreateSong(@RequestBody Song song, @PathVariable("id") Long id) {
+        song.setLikes((long) 0);
+        song.setViews((long) 0);
+        song.setCreatDate(new Timestamp(new Date().getTime()));
+        song.setStatus(true);
+        songService.save(song);
 //        Song selectSong = songService.findByCreatDate(song.getCreatDate().toString());
 //        Long songId = selectSong.getId();
 //        Singer_And_song singerAndSong = new Singer_And_song();
@@ -61,14 +67,13 @@ public class SongController {
 //    }
 
 
-
     // lay list bai hat theo user id (can xem xet)
     @GetMapping("/user/{id}")
     public ResponseEntity<List<Song>> listSongByUserId(@PathVariable("id") Long id) {
         return new ResponseEntity<List<Song>>(songService.findSongByUserId(id), HttpStatus.OK);
     }
 
-//     lay 1 bai hat theo id bai hat(ok)
+    //     lay 1 bai hat theo id bai hat(ok)
     @GetMapping("/{id}")
     public ResponseEntity<Song> findSongByIdSong(@PathVariable("id") Long songId) {
         if (songService.findById(songId).get() != null) {
