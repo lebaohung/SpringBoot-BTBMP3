@@ -1,4 +1,3 @@
-/*
 package btb.mp3.bestofthebet.controller.authentication;
 
 import btb.mp3.bestofthebet.model.EnumRole;
@@ -131,4 +130,3 @@ public class AuthController {
     }
 }
 
-*/
