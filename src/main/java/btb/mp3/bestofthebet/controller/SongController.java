@@ -46,12 +46,16 @@ public class SongController {
 
     // lay 1 bai hat theo id bai hat
     @GetMapping("/{id}")
-    public ResponseEntity<Song> findSongByIdSong(@PathVariable("id") Long id) {
-        return new ResponseEntity<Song>(songService.findById(id).get(), HttpStatus.OK);
+    public ResponseEntity<Song> findSongByIdSong(@PathVariable("id") Long songId) {
+        if (songService.findById(songId).get() != null) {
+            return new ResponseEntity<Song>(songService.findById(songId).get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
     }
 
     //edit 1 bai hat (can xem xet)
-    @PutMapping()
+    @PutMapping("/edit")
     public ResponseEntity<Void> EditSong(@RequestBody Song song) {
         songService.save(song);
         return new ResponseEntity<Void>(HttpStatus.OK);
