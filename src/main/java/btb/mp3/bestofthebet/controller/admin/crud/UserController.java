@@ -2,16 +2,17 @@ package btb.mp3.bestofthebet.controller.admin.crud;
 
 import btb.mp3.bestofthebet.exception.ResourceNotFoundException;
 import btb.mp3.bestofthebet.model.User;
+import btb.mp3.bestofthebet.repository.SongRepository;
 import btb.mp3.bestofthebet.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
+import javax.transaction.Transactional;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;/**/
+import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
@@ -20,6 +21,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private SongRepository songRepository;
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
@@ -38,11 +42,15 @@ public class UserController {
 
     @DeleteMapping("/users/{id}")
     @PreAuthorize("hasRole('ADMIN')")
+    @Transactional
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId)
         throws ResourceNotFoundException {
         User user = userRepository.findById(userId)
                         .orElseThrow(() -> new ResourceNotFoundException("User not found for this id ::" + userId));
 
+        Long deletedUserId = user.getId();
+
+        songRepository.deleteByUserId(deletedUserId);
         userRepository.delete(user);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
@@ -51,8 +59,7 @@ public class UserController {
 
     @PutMapping("/users/{id}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<User> blockUser(@PathVariable(value = "id") Long userId,
-                                          @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
+    public ResponseEntity<User> blockUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found for id :: " + userId));
 
         Boolean currentStatusUser = user.isStatus();

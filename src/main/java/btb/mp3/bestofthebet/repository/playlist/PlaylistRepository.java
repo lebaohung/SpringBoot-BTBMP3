@@ -10,5 +10,6 @@ public interface PlaylistRepository extends PagingAndSortingRepository<PlayList,
             List<PlayList> findAllByOrderByViewsDesc();
 
             List<PlayList> findAllByOrderByLikesDesc();
+
             List<PlayList> findAllByOrderByCreateDateDesc();
 }
