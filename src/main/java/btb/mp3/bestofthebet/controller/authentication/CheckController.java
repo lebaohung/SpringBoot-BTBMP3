@@ -1,4 +1,3 @@
-/*
 package btb.mp3.bestofthebet.controller.authentication;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -29,4 +28,3 @@ public class CheckController {
         return "Admin Board.";
     }
 }
-*/
