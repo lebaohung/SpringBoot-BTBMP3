@@ -1,7 +1,10 @@
 package btb.mp3.bestofthebet.controller;
 
+import btb.mp3.bestofthebet.model.Category;
 import btb.mp3.bestofthebet.model.PlayList;
+import btb.mp3.bestofthebet.model.User;
 import btb.mp3.bestofthebet.service.playlist.PlaylistService;
+import btb.mp3.bestofthebet.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -9,17 +12,22 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 @RestController
 @CrossOrigin(origins = "*")
-@RequestMapping("playlist")
+@RequestMapping("/playlist")
 public class PlaylistControllerAPI {
 
     @Autowired
     private PlaylistService playlistService;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/lists")
     public ResponseEntity<Page<PlayList>> showPlaylist (Pageable pageable){
@@ -37,7 +45,7 @@ public class PlaylistControllerAPI {
         topSixView.add(playListView.get(3));
         topSixView.add(playListView.get(4));
         topSixView.add(playListView.get(5));
-        return new ResponseEntity<List<PlayList>>(playlistService.sortView(), HttpStatus.OK);
+        return new ResponseEntity<List<PlayList>>(topSixView, HttpStatus.OK);
     }
 
     @GetMapping("/topLike")
@@ -50,7 +58,7 @@ public class PlaylistControllerAPI {
         topSixLike.add(playListLike.get(3));
         topSixLike.add(playListLike.get(4));
         topSixLike.add(playListLike.get(5));
-        return new ResponseEntity<List<PlayList>>(playlistService.sortLike(), HttpStatus.OK);
+        return new ResponseEntity<List<PlayList>>(topSixLike, HttpStatus.OK);
     }
 
     @GetMapping("/topDate")
@@ -63,7 +71,7 @@ public class PlaylistControllerAPI {
         topSixDate.add(playListDate.get(3));
         topSixDate.add(playListDate.get(4));
         topSixDate.add(playListDate.get(5));
-        return new ResponseEntity<List<PlayList>>(playlistService.sortDate(), HttpStatus.OK);
+        return new ResponseEntity<List<PlayList>>(topSixDate, HttpStatus.OK);
     }
 
     @GetMapping("/list/{id}")
@@ -75,8 +83,18 @@ public class PlaylistControllerAPI {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/listUserID/{id}")
+    public ResponseEntity<List<PlayList>> playListUserID(@PathVariable Long id){
+            User user = userService.finByID(id);
+        List<PlayList> playListList = playlistService.playlistUserID(user);
+        return new ResponseEntity<List<PlayList>>(playListList,HttpStatus.OK);
+    }
+
     @PostMapping("/creates")
     public ResponseEntity<PlayList> createPlaylist(@RequestBody PlayList playList){
+        playList.setLikes((long) 0);
+        playList.setViews((long) 0);
+        playList.setCreateDate(new Timestamp(new Date().getTime()));
         playlistService.save(playList);
         return new ResponseEntity<>(playList, HttpStatus.OK);
     }
