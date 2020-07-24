@@ -14,6 +14,8 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -49,15 +51,21 @@ public class SongController {
     public ResponseEntity<Void> CreateSong(@RequestBody Song song, @PathVariable("id") Long id) {
         song.setLikes((long) 0);
         song.setViews((long) 0);
-        song.setCreatDate(new Timestamp(new Date().getTime()));
+
+        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS'Z'");
+
+        //song.setCreatDate(new Timestamp(new Date().getTime()));
+        song.setCreatDate(new Date(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Timestamp(new Date().getTime()))));
+
         song.setStatus(true);
         songService.save(song);
-//        Song selectSong = songService.findByCreatDate(song.getCreatDate().toString());
-//        Long songId = selectSong.getId();
-//        Singer_And_song singerAndSong = new Singer_And_song();
-//        singerAndSong.setSinger(singerService.findById(id).get());
-//        singerAndSong.setSong(songService.findById(songId).get());
-//        singerAndSongService.save(singerAndSong);
+        Date date = song.getCreatDate();
+        Song selectSong = songService.findByCreatDate(date);
+        Long songId = selectSong.getId();
+        Singer_And_song singerAndSong = new Singer_And_song();
+        singerAndSong.setSinger(singerService.findById(id).get());
+        singerAndSong.setSong(songService.findById(songId).get());
+        singerAndSongService.save(singerAndSong);
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
