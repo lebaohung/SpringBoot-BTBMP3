@@ -21,6 +21,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.sql.Timestamp;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -96,7 +98,7 @@ public class AuthController {
         user.setEmail(signUpRequest.getEmail());
         user.setStatus(signUpRequest.isStatus());
         user.setBirthday(signUpRequest.getBirthday());
-        user.setCreateDate(signUpRequest.getCreateDate());
+        user.setCreateDate(new Timestamp(new Date().getTime()));
 
         Set<String> strRoles = signUpRequest.getRoles();
         Set<Role> roles = new HashSet<>();
