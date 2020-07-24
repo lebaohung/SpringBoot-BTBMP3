@@ -19,7 +19,7 @@ public class SingerService implements ISingerService{
 
     @Override
     public Optional<Singer> findById(Long id) {
-        return Optional.empty();
+        return singerReposiory.findById(id);
     }
 
     @Override

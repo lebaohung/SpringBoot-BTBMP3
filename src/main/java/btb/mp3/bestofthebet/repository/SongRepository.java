@@ -11,4 +11,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
     List<Song> findAllByOrderByViewsDesc();
 
     List<Song> findAllByOrderByCreatDateDesc();
+
+    Song findAllByCreatDate(String date);
 }

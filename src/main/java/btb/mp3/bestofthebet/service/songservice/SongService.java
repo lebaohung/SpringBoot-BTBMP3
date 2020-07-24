@@ -47,4 +47,9 @@ public class SongService implements ISongService {
         return songRepository.findAllByOrderByCreatDateDesc();
     }
 
+    @Override
+    public Song findByCreatDate(String date) {
+        return songRepository.findAllByCreatDate(date);
+    }
+
 }
