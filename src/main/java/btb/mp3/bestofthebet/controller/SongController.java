@@ -44,7 +44,7 @@ public class SongController {
         return new ResponseEntity<List<Song>>(songService.findSongByUserId(id), HttpStatus.OK);
     }
 
-    // lay 1 bai hat theo id bai hat
+    // lay 1 bai hat theo id bai hat(ok)
     @GetMapping("/{id}")
     public ResponseEntity<Song> findSongByIdSong(@PathVariable("id") Long songId) {
         if (songService.findById(songId).get() != null) {
