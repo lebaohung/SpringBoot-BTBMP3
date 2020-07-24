@@ -96,7 +96,7 @@ public class AuthController {
         user.setFull_name(signUpRequest.getFull_name());
         user.setPhone_number(signUpRequest.getPhone_number());
         user.setEmail(signUpRequest.getEmail());
-        user.setStatus(signUpRequest.isStatus());
+        user.setStatus(true);
         user.setBirthday(signUpRequest.getBirthday());
         user.setCreateDate(new Timestamp(new Date().getTime()));
 
