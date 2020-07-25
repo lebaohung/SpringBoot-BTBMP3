@@ -6,4 +6,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface SingerAndSongReposiory extends JpaRepository<Singer_And_song,Long> {
     Singer_And_song findAllBySong(Song song);
+    void deleteBySong(Song song);
 }

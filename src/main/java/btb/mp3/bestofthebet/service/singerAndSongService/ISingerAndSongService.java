@@ -6,4 +6,5 @@ import btb.mp3.bestofthebet.service.IService;
 
 public interface ISingerAndSongService extends IService<Singer_And_song> {
     Singer_And_song findBySong(Song song);
+    void deleteBySong(Song song);
 }

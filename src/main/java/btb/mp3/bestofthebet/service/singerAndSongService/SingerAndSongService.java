@@ -30,11 +30,16 @@ public class SingerAndSongService implements ISingerAndSongService{
 
     @Override
     public void delete(Long id) {
-
+        singerAndSongReposiory.deleteById(id);
     }
 
     @Override
     public Singer_And_song findBySong(Song song) {
         return singerAndSongReposiory.findAllBySong(song);
+    }
+
+    @Override
+    public void deleteBySong(Song song) {
+        singerAndSongReposiory.deleteBySong(song);
     }
 }
