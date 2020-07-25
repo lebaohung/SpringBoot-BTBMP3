@@ -2,8 +2,12 @@ package btb.mp3.bestofthebet.controller.admin.crud;
 
 import btb.mp3.bestofthebet.exception.ResourceNotFoundException;
 import btb.mp3.bestofthebet.model.User;
+import btb.mp3.bestofthebet.repository.CommentSongRepository;
 import btb.mp3.bestofthebet.repository.SongRepository;
 import btb.mp3.bestofthebet.repository.UserRepository;
+import btb.mp3.bestofthebet.service.commentPlayListService.ICommentPlayListService;
+import btb.mp3.bestofthebet.service.commentsong.ICommentSongService;
+import btb.mp3.bestofthebet.service.playlist.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -24,6 +28,15 @@ public class UserController {
 
     @Autowired
     private SongRepository songRepository;
+
+    @Autowired
+    private ICommentSongService commentSongService;
+
+    @Autowired
+    private PlaylistService playlistService;
+
+    @Autowired
+    private ICommentPlayListService commentPlayListService;
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
@@ -50,7 +63,10 @@ public class UserController {
 
         Long deletedUserId = user.getId();
 
+        commentPlayListService.deleteByUserId(deletedUserId);
+        commentSongService.deleteByUserId(deletedUserId);
         songRepository.deleteByUserId(deletedUserId);
+        playlistService.deleteByUserId(deletedUserId);
         userRepository.delete(user);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
