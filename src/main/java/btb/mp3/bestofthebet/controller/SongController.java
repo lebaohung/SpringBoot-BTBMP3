@@ -7,6 +7,7 @@ import btb.mp3.bestofthebet.service.singer.ISingerService;
 import btb.mp3.bestofthebet.service.singerAndSongService.ISingerAndSongService;
 import btb.mp3.bestofthebet.service.songservice.ISongService;
 import btb.mp3.bestofthebet.service.songservice.SongService;
+import btb.mp3.bestofthebet.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +33,9 @@ public class SongController {
 
     @Autowired
     ISingerService singerService;
+
+    @Autowired
+    UserService userService;
 
     // xoa bai hat theo id bai hat (can xem xet)
     @DeleteMapping("/{id}")
@@ -69,10 +73,7 @@ public class SongController {
         return new ResponseEntity<Void>(HttpStatus.CREATED);
     }
 
-//    @PostMapping()
-//    public ResponseEntity<Void>CreateSong(){
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+
 
 
     // lay list bai hat theo user id (can xem xet)
@@ -90,7 +91,15 @@ public class SongController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
-
+    // lay singer and song theo song(ok)
+    @GetMapping("/singerandsong/{id}")
+    public ResponseEntity<Singer_And_song> findSingerBySong(@PathVariable("id") Long id){
+        Song song = songService.findById(id).get();
+        if(song!= null){
+            return new ResponseEntity<Singer_And_song>(singerAndSongService.findBySong(song),HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     //edit 1 bai hat (can xem xet)
     @PutMapping("/edit")
