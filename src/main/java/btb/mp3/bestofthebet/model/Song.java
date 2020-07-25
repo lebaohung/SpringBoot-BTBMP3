@@ -25,7 +25,6 @@ public class Song {
     private Date creatDate;
 
     private String songLink;
-    private String singer;
     @Column (nullable = false)
     private String songImage;
 

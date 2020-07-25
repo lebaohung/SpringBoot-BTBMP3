@@ -6,6 +6,7 @@ import btb.mp3.bestofthebet.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,6 +46,11 @@ public class SongService implements ISongService {
 
     public List<Song> findTop6New(){
         return songRepository.findAllByOrderByCreatDateDesc();
+    }
+
+    @Override
+    public Song findByCreatDate(Date date) {
+        return songRepository.findAllByCreatDate(date);
     }
 
 }
