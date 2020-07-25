@@ -11,7 +11,7 @@ import java.util.Date;
 public class PlayList {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Long id;
 
@@ -26,5 +26,8 @@ public class PlayList {
 
     @Column (nullable = false)
     private Date createDate;
+
+    @ManyToOne
+    private User user;
 
 }
