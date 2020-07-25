@@ -1,6 +1,7 @@
 package btb.mp3.bestofthebet.service.songservice;
 
 import btb.mp3.bestofthebet.model.Song;
+import btb.mp3.bestofthebet.model.User;
 import btb.mp3.bestofthebet.repository.SongRepository;
 import btb.mp3.bestofthebet.service.IService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,8 +37,10 @@ public class SongService implements ISongService {
         songRepository.deleteById(id);
     }
 
-    public List<Song> findSongByUserId(Long id) {
-        return songRepository.findByUserId(id);
+
+    @Override
+    public List<Song> findSongByUser(User user) {
+        return songRepository.findByUser(user);
     }
 
     public List<Song> findTop6View(){
