@@ -1,9 +1,12 @@
 package btb.mp3.bestofthebet.controller;
 
-import btb.mp3.bestofthebet.model.Category;
+
 import btb.mp3.bestofthebet.model.PlayList;
+import btb.mp3.bestofthebet.model.Playlist_Song;
+import btb.mp3.bestofthebet.model.Song;
 import btb.mp3.bestofthebet.model.User;
 import btb.mp3.bestofthebet.service.playlist.PlaylistService;
+import btb.mp3.bestofthebet.service.playlist_song.Playlist_songService;
 import btb.mp3.bestofthebet.service.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -28,6 +31,9 @@ public class PlaylistControllerAPI {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private Playlist_songService playlist_songService;
 
     @GetMapping("/lists")
     public ResponseEntity<Page<PlayList>> showPlaylist (Pageable pageable){
@@ -99,16 +105,20 @@ public class PlaylistControllerAPI {
         return new ResponseEntity<>(playList, HttpStatus.OK);
     }
 
-    @PutMapping("/edit/{id}")
-    public ResponseEntity<PlayList> editPlaylist(@PathVariable Long id, @RequestBody PlayList playList){
-        Optional<PlayList> playList1 = playlistService.findById(id);
-        if (playList1.isPresent()){
-//            playList.setId(id);
-            playlistService.save(playList);
-            return  new ResponseEntity<>(playList, HttpStatus.OK);
+    @GetMapping("/edit/{id}")
+    public ResponseEntity<PlayList> PlaylistByID (@PathVariable Long id){
+        PlayList playList1 = playlistService.findById(id).get();
+        if (playList1 != null){
+            return  new ResponseEntity<PlayList>(playList1, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
+
+//    @PutMapping("/edit")
+//    private ResponseEntity<PlayList> editPlaylist(@RequestBody PlayList playList){
+//        playlistService.save(playList);
+//        return  new ResponseEntity<PlayList>(playList, HttpStatus.OK);
+//    }
 
     @DeleteMapping("/delete/{id}")
     public  ResponseEntity<PlayList> deletePlaylist(@PathVariable Long id){
@@ -116,6 +126,20 @@ public class PlaylistControllerAPI {
         if (playList.isPresent()){
             playlistService.remove(id);
             return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @GetMapping ("/playlistsong/{id}")
+    private ResponseEntity<List<Song>> songPlaylisy(@PathVariable Long id){
+        PlayList playList = playlistService.findById(id).get();
+        if (playList != null){
+            List<Playlist_Song> playlist_songs = playlist_songService.playlistSong(playList);
+            List<Song> songList = new ArrayList<>();
+            for (Playlist_Song playSong: playlist_songs) {
+                songList.add(playSong.getSong());
+            }
+            return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
