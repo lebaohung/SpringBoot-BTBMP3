@@ -104,7 +104,7 @@ public class SongController {
     }
 
     //edit 1 bai hat (ok)
-    @PutMapping("/edit//{id}")
+    @PutMapping("/edit/{id}")
     public ResponseEntity<Void> EditSong(@RequestBody Song song, @PathVariable("id") Long id) {
         song.setLikes((long) 0);
         song.setViews((long) 0);
