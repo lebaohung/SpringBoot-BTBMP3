@@ -114,11 +114,11 @@ public class PlaylistControllerAPI {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-//    @PutMapping("/edit")
-//    private ResponseEntity<PlayList> editPlaylist(@RequestBody PlayList playList){
-//        playlistService.save(playList);
-//        return  new ResponseEntity<PlayList>(playList, HttpStatus.OK);
-//    }
+    @PutMapping("/edit")
+    private ResponseEntity<PlayList> editPlaylist(@RequestBody PlayList playList){
+        playlistService.save(playList);
+        return  new ResponseEntity<PlayList>(playList, HttpStatus.OK);
+    }
 
     @DeleteMapping("/delete/{id}")
     public  ResponseEntity<PlayList> deletePlaylist(@PathVariable Long id){
