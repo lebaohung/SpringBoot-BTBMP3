@@ -1,6 +1,7 @@
 package btb.mp3.bestofthebet.service.singerAndSongService;
 
 import btb.mp3.bestofthebet.model.Singer_And_song;
+import btb.mp3.bestofthebet.model.Song;
 import btb.mp3.bestofthebet.repository.SingerAndSongReposiory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,5 +31,10 @@ public class SingerAndSongService implements ISingerAndSongService{
     @Override
     public void delete(Long id) {
 
+    }
+
+    @Override
+    public Singer_And_song findBySong(Song song) {
+        return singerAndSongReposiory.findAllBySong(song);
     }
 }
