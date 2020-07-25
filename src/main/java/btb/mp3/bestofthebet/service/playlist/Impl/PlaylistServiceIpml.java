@@ -57,4 +57,9 @@ public class PlaylistServiceIpml implements PlaylistService {
     public void remove(Long id) {
         playlistRepository.deleteById(id);
     }
+
+    @Override
+    public List<PlayList> deleteByUserId(Long id) {
+        return playlistRepository.deleteByUserId(id);
+    }
 }
