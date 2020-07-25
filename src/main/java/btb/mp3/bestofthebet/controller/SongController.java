@@ -106,16 +106,9 @@ public class SongController {
     //edit 1 bai hat (ok)
     @PutMapping("/edit/{id}")
     public ResponseEntity<Void> EditSong(@RequestBody Song song, @PathVariable("id") Long id) {
-        song.setLikes((long) 0);
-        song.setViews((long) 0);
-        DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss:SSS'Z'");
-        song.setCreatDate(new Date(new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(new Timestamp(new Date().getTime()))));
-        song.setStatus(true);
         songService.save(song);
-        Date date = song.getCreatDate();
-        Song selectSong = songService.findByCreatDate(date);
-        Long songId = selectSong.getId();
-        Singer_And_song singerAndSong = new Singer_And_song();
+        Long songId = song.getId();
+        Singer_And_song singerAndSong = singerAndSongService.findBySong(song);
         singerAndSong.setSinger(singerService.findById(id).get());
         singerAndSong.setSong(songService.findById(songId).get());
         singerAndSongService.save(singerAndSong);
