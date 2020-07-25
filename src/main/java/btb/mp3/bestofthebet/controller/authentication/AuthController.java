@@ -1,5 +1,6 @@
 package btb.mp3.bestofthebet.controller.authentication;
 
+import btb.mp3.bestofthebet.exception.ResourceNotFoundException;
 import btb.mp3.bestofthebet.model.EnumRole;
 import btb.mp3.bestofthebet.model.Role;
 import btb.mp3.bestofthebet.model.User;
@@ -9,6 +10,7 @@ import btb.mp3.bestofthebet.model.response.JwtResponse;
 import btb.mp3.bestofthebet.model.response.MessageResponse;
 import btb.mp3.bestofthebet.repository.RoleRepository;
 import btb.mp3.bestofthebet.repository.UserRepository;
+import btb.mp3.bestofthebet.service.role.IRoleService;
 import btb.mp3.bestofthebet.service.security.jwt.JwtUtils;
 import btb.mp3.bestofthebet.service.security.userInformation.UserDetailsImpl;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,10 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.sql.Timestamp;
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @CrossOrigin(origins ="*", maxAge = 3600)
@@ -48,8 +47,11 @@ public class AuthController {
     @Autowired
     JwtUtils jwtUtils;
 
+    @Autowired
+    private IRoleService roleService;
+
     @PostMapping("/signin")
-    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
+    public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) throws Exception {
 
         UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
                 loginRequest.getUsername(),
@@ -65,6 +67,22 @@ public class AuthController {
                 .map(item -> item.getAuthority())
                 .collect(Collectors.toList());
 
+        String nameRole = roles.get(0);
+        EnumRole role = null;
+        EnumRole enumRole[] = EnumRole.values();
+
+        for (EnumRole r : enumRole) {
+            if (nameRole.equals(r.toString())) {
+                role = r;
+            }
+        }
+
+        Role resultRole = roleService.findByName(role)
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
+
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(resultRole);
+
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                                     userDetails.getId(),
                                                                     userDetails.getUsername(),
@@ -74,7 +92,7 @@ public class AuthController {
                                                                     userDetails.isStatus(),
                                                                     userDetails.getBirthday(),
                                                                     userDetails.getCreateDate(),
-                                                                    roles));
+                                                                    roleList));
     }
 
     @PostMapping("/signup")

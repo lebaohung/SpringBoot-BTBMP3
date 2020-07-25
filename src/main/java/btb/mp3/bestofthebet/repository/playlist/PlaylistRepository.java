@@ -10,6 +10,11 @@ import java.util.List;
 public interface PlaylistRepository extends PagingAndSortingRepository<PlayList, Long> {
             List<PlayList> findAllByOrderByViewsDesc();
             List<PlayList> findAllByOrderByLikesDesc();
+
             List<PlayList> findAllByOrderByCreateDateDesc();
+
+            List<PlayList> deleteByUserId(Long id);
+
             List<PlayList> findAllByUser(User user);
+
 }

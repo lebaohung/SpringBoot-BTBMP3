@@ -21,4 +21,6 @@ public interface PlaylistService {
     void save(PlayList playList);
 
     void remove(Long id);
+
+    List<PlayList> deleteByUserId(Long id);
 }
