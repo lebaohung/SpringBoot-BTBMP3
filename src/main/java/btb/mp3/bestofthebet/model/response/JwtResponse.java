@@ -1,5 +1,7 @@
 package btb.mp3.bestofthebet.model.response;
 
+import btb.mp3.bestofthebet.model.Role;
+
 import java.util.Date;
 import java.util.List;
 
@@ -15,12 +17,12 @@ public class JwtResponse {
     private Boolean status;
     private Date birthday;
     private Date createDate;
-    private List<String> roles;
+    private List<Role> roles;
 
     public JwtResponse(String token, Long id, String username,
                        String fullName, String email,
                        String phoneNumber, Boolean status,
-                       Date birthday, Date createDate, List<String> roles) {
+                       Date birthday, Date createDate, List<Role> roles) {
         this.token = token;
         this.id = id;
         this.username = username;
@@ -73,11 +75,11 @@ public class JwtResponse {
         this.email = email;
     }
 
-    public List<String> getRoles() {
+    public List<Role> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<String> role) {
+    public void setRoles(List<Role> role) {
         this.roles = role;
     }
 
