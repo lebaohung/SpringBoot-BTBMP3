@@ -1,6 +1,7 @@
 package btb.mp3.bestofthebet.service.playlist.Impl;
 
 import btb.mp3.bestofthebet.model.PlayList;
+import btb.mp3.bestofthebet.model.User;
 import btb.mp3.bestofthebet.repository.playlist.PlaylistRepository;
 import btb.mp3.bestofthebet.service.playlist.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,11 @@ public class PlaylistServiceIpml implements PlaylistService {
     @Override
     public List<PlayList> sortDate() {
         return playlistRepository.findAllByOrderByCreateDateDesc();
+    }
+
+    @Override
+    public List<PlayList> playlistUserID(User user) {
+        return playlistRepository.findAllByUser(user);
     }
 
     @Override

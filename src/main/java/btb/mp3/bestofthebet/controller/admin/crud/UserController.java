@@ -20,7 +20,7 @@ import java.util.Map;
 
 @CrossOrigin(origins = "http://localhost:4200")
 @RestController
-@RequestMapping("api/admin/crud-user/")
+@RequestMapping("api/admin/crud-user")
 public class UserController {
 
     @Autowired
@@ -40,8 +40,8 @@ public class UserController {
 
     @GetMapping("/users")
     @PreAuthorize("hasRole('ADMIN')")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userRepository.findAll());
     }
 
     @GetMapping("/users/{id}")
