@@ -1,5 +1,6 @@
 package btb.mp3.bestofthebet.controller;
 
+import btb.mp3.bestofthebet.model.Singer;
 import btb.mp3.bestofthebet.model.Singer_And_song;
 import btb.mp3.bestofthebet.model.Song;
 import btb.mp3.bestofthebet.model.User;
@@ -93,10 +94,11 @@ public class SongController {
 
     // lay singer and song theo song(ok)
     @GetMapping("/singerandsong/{id}")
-    public ResponseEntity<Singer_And_song> findSingerBySong(@PathVariable("id") Long id) {
+    public ResponseEntity<Singer> findSingerBySong(@PathVariable("id") Long id) {
         Song song = songService.findById(id).get();
         if (song != null) {
-            return new ResponseEntity<Singer_And_song>(singerAndSongService.findBySong(song), HttpStatus.OK);
+            Singer singer = singerAndSongService.findBySong(song).getSinger();
+            return new ResponseEntity<Singer>(singer, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
