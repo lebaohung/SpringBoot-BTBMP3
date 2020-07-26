@@ -1,7 +1,7 @@
 package btb.mp3.bestofthebet.service.singer;
 
 import btb.mp3.bestofthebet.model.Singer;
-import btb.mp3.bestofthebet.repository.SingerReposiory;
+import btb.mp3.bestofthebet.repository.SingerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,16 +10,16 @@ import java.util.Optional;
 @Service
 public class SingerService implements ISingerService{
     @Autowired
-    SingerReposiory singerReposiory;
+    SingerRepository singerRepository;
 
     @Override
     public List<Singer> findAll() {
-        return singerReposiory.findAll();
+        return singerRepository.findAll();
     }
 
     @Override
     public Optional<Singer> findById(Long id) {
-        return singerReposiory.findById(id);
+        return singerRepository.findById(id);
     }
 
     @Override
