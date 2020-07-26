@@ -20,4 +20,22 @@ public class Playlist_songServiceImpl implements Playlist_songService {
     public List<Playlist_Song> playlistSong(PlayList playList) {
         return playlistSongRepository.findAllByPlaylist(playList);
     }
+
+    @Override
+    public void save(Playlist_Song playlistSong) {
+        playlistSongRepository.save(playlistSong);
+    }
+
+    @Override
+    public void delete(Long id) {
+        playlistSongRepository.deleteById(id);
+    }
+
+
+    @Override
+    public Playlist_Song findById(Long id) {
+        return playlistSongRepository.findById(id).get();
+    }
+
+
 }
