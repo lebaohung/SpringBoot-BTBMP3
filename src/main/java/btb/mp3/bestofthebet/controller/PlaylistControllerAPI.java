@@ -162,7 +162,7 @@ public class PlaylistControllerAPI {
 
     // xoa 1 bai hat trong playlist id la id cua Playlist_Song
 
-    @DeleteMapping("/th")
+    @DeleteMapping("/deleteSonginPlaylist/{id}")
     private ResponseEntity<Void> deleteSongInPlaylist(@PathVariable("id") Long id){
        if(id!=null){
            playlist_songService.delete(id);
