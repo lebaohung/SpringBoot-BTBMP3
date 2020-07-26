@@ -73,7 +73,7 @@ public class AuthController {
 
         String nameRole = roles.get(0);
 
-        if (nameRole.equals("ROLE_ADMIN")) {
+        if (nameRole.equals("ROLE_ADMIN") || !userDetails.isStatus()) {
             return ResponseEntity.badRequest().body(new MessageResponse("Access Denied, try again in another Server Client !!!"));
         }
 
@@ -91,14 +91,6 @@ public class AuthController {
 
         List<Role> roleList = new ArrayList<>();
         roleList.add(resultRole);
-
-        //String domain = SecurityContextHolder.getContext().getAuthentication().getDetails().toString();
-       // System.out.println(domain);
-
-/*        RequestAttributes requestAttribute = RequestContextHolder.getRequestAttributes();
-        System.out.println(requestAttribute.toString());
-        HttpServletRequest servletRequest= ((ServletRequestAttributes)requestAttribute).getRequest();
-        System.out.println(servletRequest);*/
 
         return ResponseEntity.ok(new JwtResponse(jwt,
                                                                     userDetails.getId(),

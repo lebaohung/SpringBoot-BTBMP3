@@ -45,7 +45,7 @@ public class UserController {
     private CommentSingerService commentSingerService;
 
     @GetMapping("/users")
-   /* @PreAuthorize("hasRole('ROLE_ADMIN')")*/
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
