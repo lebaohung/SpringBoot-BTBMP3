@@ -21,7 +21,11 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.context.request.RequestAttributes;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.sql.Timestamp;
 import java.util.*;
@@ -68,6 +72,75 @@ public class AuthController {
                 .collect(Collectors.toList());
 
         String nameRole = roles.get(0);
+
+        if (nameRole.equals("ROLE_ADMIN")) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Access Denied, try again in another Server Client !!!"));
+        }
+
+        EnumRole role = null;
+        EnumRole enumRole[] = EnumRole.values();
+
+        for (EnumRole r : enumRole) {
+            if (nameRole.equals(r.toString())) {
+                role = r;
+            }
+        }
+
+        Role resultRole = roleService.findByName(role)
+                .orElseThrow(() -> new ResourceNotFoundException("Role not found"));
+
+        List<Role> roleList = new ArrayList<>();
+        roleList.add(resultRole);
+
+        //String domain = SecurityContextHolder.getContext().getAuthentication().getDetails().toString();
+       // System.out.println(domain);
+
+/*        RequestAttributes requestAttribute = RequestContextHolder.getRequestAttributes();
+        System.out.println(requestAttribute.toString());
+        HttpServletRequest servletRequest= ((ServletRequestAttributes)requestAttribute).getRequest();
+        System.out.println(servletRequest);*/
+
+        return ResponseEntity.ok(new JwtResponse(jwt,
+                                                                    userDetails.getId(),
+                                                                    userDetails.getUsername(),
+                                                                    userDetails.getFullName(),
+                                                                    userDetails.getEmail(),
+                                                                    userDetails.getPhoneNumber(),
+                                                                    userDetails.isStatus(),
+                                                                    userDetails.getBirthday(),
+                                                                    userDetails.getCreateDate(),
+                                                                    roleList));
+    }
+
+    @PostMapping("/admin/signin")
+    public ResponseEntity<?> authenticateAdmin(@Valid @RequestBody LoginRequest loginRequest,
+                                                                HttpServletRequest request) throws Exception {
+
+        UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
+                loginRequest.getUsername(),
+                loginRequest.getPassword()
+        );
+        Authentication authentication = authenticationManager.authenticate(authToken);
+
+        String origin = request.getHeader("Origin");
+
+        System.out.println(request.getHeader("Origin"));
+
+        SecurityContextHolder.getContext().setAuthentication(authentication);
+
+        String jwt = jwtUtils.generateJwtToken(authentication);
+
+        UserDetailsImpl userDetails = (UserDetailsImpl)authentication.getPrincipal();
+        List<String> roles = userDetails.getAuthorities().stream()
+                .map(item -> item.getAuthority())
+                .collect(Collectors.toList());
+
+        String nameRole = roles.get(0);
+
+        if (!nameRole.equals("ROLE_ADMIN")) {
+            return ResponseEntity.badRequest().body(new MessageResponse("Access Denied, try again in another Server Client !!!"));
+        }
+
         EnumRole role = null;
         EnumRole enumRole[] = EnumRole.values();
 
@@ -84,16 +157,17 @@ public class AuthController {
         roleList.add(resultRole);
 
         return ResponseEntity.ok(new JwtResponse(jwt,
-                                                                    userDetails.getId(),
-                                                                    userDetails.getUsername(),
-                                                                    userDetails.getFullName(),
-                                                                    userDetails.getEmail(),
-                                                                    userDetails.getPhoneNumber(),
-                                                                    userDetails.isStatus(),
-                                                                    userDetails.getBirthday(),
-                                                                    userDetails.getCreateDate(),
-                                                                    roleList));
+                userDetails.getId(),
+                userDetails.getUsername(),
+                userDetails.getFullName(),
+                userDetails.getEmail(),
+                userDetails.getPhoneNumber(),
+                userDetails.isStatus(),
+                userDetails.getBirthday(),
+                userDetails.getCreateDate(),
+                roleList));
     }
+
 
     @PostMapping("/signup")
     public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {

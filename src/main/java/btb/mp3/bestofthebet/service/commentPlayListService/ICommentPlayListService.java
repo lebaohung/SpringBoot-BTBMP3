@@ -6,7 +6,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
 public interface ICommentPlayListService extends IService<Comment_Playlist> {
 
     List<Comment_Playlist> deleteByUserId(Long id);
