@@ -1,6 +1,7 @@
 package btb.mp3.bestofthebet.service.songservice;
 
 import btb.mp3.bestofthebet.model.Song;
+import btb.mp3.bestofthebet.model.User;
 import btb.mp3.bestofthebet.service.IService;
 
 import java.util.Date;
@@ -8,7 +9,7 @@ import java.util.List;
 
 public interface ISongService extends IService<Song> {
 
-    List<Song> findSongByUserId(Long id);
+    List<Song> findSongByUser(User user);
 
     List<Song> findTop6View();
 

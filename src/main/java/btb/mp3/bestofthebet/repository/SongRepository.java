@@ -9,7 +9,7 @@ import java.sql.Timestamp;
 import java.util.List;
 
 public interface SongRepository extends JpaRepository<Song, Long> {
-    List<Song> findByUserId(Long id);
+    List<Song> findByUser(User user);
 
     List<Song> findAllByOrderByViewsDesc();
 
