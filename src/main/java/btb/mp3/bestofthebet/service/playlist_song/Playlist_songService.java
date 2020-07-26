@@ -7,5 +7,11 @@ import btb.mp3.bestofthebet.model.Song;
 import java.util.List;
 
 public interface Playlist_songService {
-    List<Playlist_Song> playlistSong (PlayList playList);
+    List<Playlist_Song> playlistSong(PlayList playList);
+
+    void save(Playlist_Song playlistSong);
+
+    void delete (Long id);
+
+    Playlist_Song findById(Long id);
 }
