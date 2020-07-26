@@ -6,9 +6,11 @@ import btb.mp3.bestofthebet.repository.CommentSongRepository;
 import btb.mp3.bestofthebet.repository.SongRepository;
 import btb.mp3.bestofthebet.repository.UserRepository;
 import btb.mp3.bestofthebet.service.commentPlayListService.ICommentPlayListService;
+import btb.mp3.bestofthebet.service.commentSingerService.impl.CommentSingerService;
 import btb.mp3.bestofthebet.service.commentsong.ICommentSongService;
 import btb.mp3.bestofthebet.service.playlist.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -18,9 +20,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200")
+//@CrossOrigin(origins = "http://localhost:4201")
+@CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("api/admin/crud-user")
+@RequestMapping("/api/admin/crud-user")
 public class UserController {
 
     @Autowired
@@ -38,14 +41,17 @@ public class UserController {
     @Autowired
     private ICommentPlayListService commentPlayListService;
 
+    @Autowired
+    private CommentSingerService commentSingerService;
+
     @GetMapping("/users")
-    @PreAuthorize("hasRole('ADMIN')")
+   /* @PreAuthorize("hasRole('ROLE_ADMIN')")*/
     public ResponseEntity<List<User>> getAllUsers() {
         return ResponseEntity.ok(userRepository.findAll());
     }
 
     @GetMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<User> getUserById(@PathVariable(value = "id") Long userId)
         throws ResourceNotFoundException {
         User user = userRepository.findById(userId)
@@ -54,7 +60,7 @@ public class UserController {
     }
 
     @DeleteMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Transactional
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId)
         throws ResourceNotFoundException {
@@ -63,6 +69,7 @@ public class UserController {
 
         Long deletedUserId = user.getId();
 
+        commentSingerService.deleteByUserId(deletedUserId);
         commentPlayListService.deleteByUserId(deletedUserId);
         commentSongService.deleteByUserId(deletedUserId);
         songRepository.deleteByUserId(deletedUserId);
@@ -74,7 +81,8 @@ public class UserController {
     }
 
     @PutMapping("/users/{id}")
-    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Transactional
     public ResponseEntity<User> blockUser(@PathVariable(value = "id") Long userId) throws ResourceNotFoundException {
         User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("User not found for id :: " + userId));
 
