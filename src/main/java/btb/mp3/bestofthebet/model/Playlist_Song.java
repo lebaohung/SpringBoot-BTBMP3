@@ -10,7 +10,7 @@ import javax.persistence.*;
 public class Playlist_Song {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Long id;
 
@@ -19,4 +19,6 @@ public class Playlist_Song {
 
     @ManyToOne
     private Song song;
+
+
 }
