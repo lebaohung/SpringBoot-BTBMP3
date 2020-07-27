@@ -41,7 +41,7 @@ public class SongController {
     @Autowired
     UserService userService;
 
-    // xoa bai hat theo id bai hat (can xem xet)
+    // xoa bai hat theo id bai hat (ok)
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id) {
