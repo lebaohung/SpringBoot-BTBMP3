@@ -129,11 +129,18 @@ public class SongController {
     @GetMapping("/newcreat")
     public ResponseEntity<List<Song>> newCreat() {
         List<Song> songList = songService.findTop6New();
-       if(songList!= null){
-           return new ResponseEntity<List<Song>>(songList,HttpStatus.OK);
-       }
+        if (songList != null) {
+            return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+        }
         return new ResponseEntity<List<Song>>(HttpStatus.FOUND);
     }
 
+    // tim kiem bai hat theo ten(ok)
+
+    @GetMapping("/findsong/{name}")
+    public ResponseEntity<List<Song>> findSongByName(@PathVariable("name") String name ){
+        List<Song> songList = songService.findByName(name);
+        return new ResponseEntity<List<Song>>(songList,HttpStatus.OK);
+    }
 
 }
