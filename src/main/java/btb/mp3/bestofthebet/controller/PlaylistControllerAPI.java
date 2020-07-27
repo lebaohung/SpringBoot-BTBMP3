@@ -174,7 +174,7 @@ public class PlaylistControllerAPI {
 
     // hien thi comment theo id playlist(ok)
 
-    @GetMapping("showcomment/{id}")
+    @GetMapping("/showcomment/{id}")
     private ResponseEntity<List<Comment_Playlist>> showComment(@PathVariable("id") Long id){
         PlayList playList = playlistService.findById(id).get();
         if (playList!= null){
