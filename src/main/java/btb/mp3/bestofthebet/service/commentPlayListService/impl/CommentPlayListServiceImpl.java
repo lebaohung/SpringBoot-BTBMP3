@@ -1,6 +1,7 @@
 package btb.mp3.bestofthebet.service.commentPlayListService.impl;
 
 import btb.mp3.bestofthebet.model.Comment_Playlist;
+import btb.mp3.bestofthebet.model.PlayList;
 import btb.mp3.bestofthebet.repository.CommentPlayListRepository;
 import btb.mp3.bestofthebet.service.commentPlayListService.ICommentPlayListService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,11 +25,17 @@ public class CommentPlayListServiceImpl implements ICommentPlayListService {
     }
 
     public void save(Comment_Playlist commentSong) {
+        commentPlayListRepository.save(commentSong);
     }
 
     public void delete(Long id) {}
 
     public List<Comment_Playlist> deleteByUserId(Long id) {
         return commentPlayListRepository.deleteByUserId(id);
+    }
+
+    @Override
+    public List<Comment_Playlist> showCommentByPlaylist(PlayList playList) {
+        return commentPlayListRepository.findAllByPlaylist(playList);
     }
 }

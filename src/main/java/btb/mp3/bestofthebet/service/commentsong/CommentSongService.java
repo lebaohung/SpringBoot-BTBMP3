@@ -23,6 +23,7 @@ public class CommentSongService implements ICommentSongService {
     }
 
     public void save(Comment_Song commentSong) {
+        commentSongRepository.save(commentSong);
     }
 
     public void delete(Long id) {}

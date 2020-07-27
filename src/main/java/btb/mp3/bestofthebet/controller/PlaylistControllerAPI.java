@@ -1,10 +1,8 @@
 package btb.mp3.bestofthebet.controller;
 
 
-import btb.mp3.bestofthebet.model.PlayList;
-import btb.mp3.bestofthebet.model.Playlist_Song;
-import btb.mp3.bestofthebet.model.Song;
-import btb.mp3.bestofthebet.model.User;
+import btb.mp3.bestofthebet.model.*;
+import btb.mp3.bestofthebet.service.commentPlayListService.ICommentPlayListService;
 import btb.mp3.bestofthebet.service.playlist.PlaylistService;
 import btb.mp3.bestofthebet.service.playlist_song.Playlist_songService;
 import btb.mp3.bestofthebet.service.user.UserService;
@@ -34,6 +32,9 @@ public class PlaylistControllerAPI {
 
     @Autowired
     private Playlist_songService playlist_songService;
+
+    @Autowired
+    private ICommentPlayListService commentPlayListService;
 
     @GetMapping("/lists")
     public ResponseEntity<Page<PlayList>> showPlaylist(Pageable pageable) {
@@ -158,6 +159,29 @@ public class PlaylistControllerAPI {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
+    }
+    // them 1 comment vao playlist
+    @PostMapping("/savecommentPlaylist")
+    private ResponseEntity<Void> saveCommentPlaylist(@RequestBody Comment_Playlist comment_playlist){
+        if(comment_playlist != null){
+            comment_playlist.setDate(new Timestamp(new Date().getTime()));
+            commentPlayListService.save(comment_playlist);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+    }
+
+    // hien thi comment theo id playlist(ok)
+
+    @GetMapping("showcomment/{id}")
+    private ResponseEntity<List<Comment_Playlist>> showComment(@PathVariable("id") Long id){
+        PlayList playList = playlistService.findById(id).get();
+        if (playList!= null){
+            List<Comment_Playlist> comment_playlists = commentPlayListService.showCommentByPlaylist(playList);
+            return new ResponseEntity<List<Comment_Playlist>>(comment_playlists,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 
