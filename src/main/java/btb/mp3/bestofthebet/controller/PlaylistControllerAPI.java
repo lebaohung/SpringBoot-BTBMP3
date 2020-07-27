@@ -132,7 +132,7 @@ public class PlaylistControllerAPI {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    // luu 1 song va 1 playlist vao playlist song id la id playlist
+    // luu 1 song vao 1 playlist vao playlist song id la id playlist
     @PutMapping("/addsong/{id}")
     private ResponseEntity<Void> saveSongToPlaylist(@PathVariable("id") Long id, @RequestBody Song song) {
 
@@ -141,8 +141,10 @@ public class PlaylistControllerAPI {
             Playlist_Song playlistSong = new Playlist_Song();
             playlistSong.setPlaylist(playList);
             playlistSong.setSong(song);
-            playlist_songService.save(playlistSong);
-            return new ResponseEntity<>(HttpStatus.OK);
+            if(playlist_songService.findByPlaylistSong(playlistSong)==null){
+                playlist_songService.save(playlistSong);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 

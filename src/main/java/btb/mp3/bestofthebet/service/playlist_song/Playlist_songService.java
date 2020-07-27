@@ -14,4 +14,6 @@ public interface Playlist_songService {
     void delete (Long id);
 
     Playlist_Song findById(Long id);
+
+    Number findByPlaylistSong(Playlist_Song playlistSong);
 }
