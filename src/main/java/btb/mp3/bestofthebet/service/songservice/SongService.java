@@ -44,11 +44,11 @@ public class SongService implements ISongService {
     }
 
     public List<Song> findTop6View(){
-        return songRepository.findAllByOrderByViewsDesc();
+        return songRepository.findTop6ByOrderByViewsDesc();
     }
 
     public List<Song> findTop6New(){
-        return songRepository.findAllByOrderByCreatDateDesc();
+        return songRepository.findTop6ByOrderByCreatDateDesc();
     }
 
     @Override

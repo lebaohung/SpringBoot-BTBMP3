@@ -11,11 +11,13 @@ import java.util.List;
 public interface SongRepository extends JpaRepository<Song, Long> {
     List<Song> findByUser(User user);
 
-    List<Song> findAllByOrderByViewsDesc();
+    List<Song> findTop6ByOrderByViewsDesc();
 
-    List<Song> findAllByOrderByCreatDateDesc();
+    List<Song> findTop6ByOrderByCreatDateDesc();
 
     List<Song> deleteByUserId(Long id);
 
     Song findAllByCreatDate(Date date);
+
+//    List<Song> findAllByNameEquals
 }
