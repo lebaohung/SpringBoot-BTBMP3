@@ -132,7 +132,7 @@ public class SongController {
     // top 6 bai hat moi tao
     @GetMapping("/newcreat")
     public ResponseEntity<List<Song>> newCreat() {
-        List<Song> songList = songService.findTop6View();
+        List<Song> songList = songService.findTop6New();
         List<Song> top6New = new ArrayList<>();
         top6New.add(songList.get(0));
         top6New.add(songList.get(1));
