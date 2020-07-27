@@ -56,4 +56,9 @@ public class SongService implements ISongService {
         return songRepository.findAllByCreatDate(date);
     }
 
+    @Override
+    public List<Song> findByName(String name) {
+        return songRepository.findAllByNameEquals(name);
+    }
+
 }

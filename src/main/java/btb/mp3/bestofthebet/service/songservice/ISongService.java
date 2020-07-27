@@ -17,4 +17,6 @@ public interface ISongService extends IService<Song> {
 
     Song findByCreatDate(Date date);
 
+    List<Song> findByName(String name);
+
 }
