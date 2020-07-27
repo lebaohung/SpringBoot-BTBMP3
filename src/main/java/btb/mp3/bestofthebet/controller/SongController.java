@@ -51,7 +51,7 @@ public class SongController {
         }
         singerAndSongService.deleteBySong(song);
         songService.delete(id);
-        return new ResponseEntity<Song>(song,HttpStatus.OK);
+        return new ResponseEntity<Song>(song, HttpStatus.OK);
     }
 
     // tao moi 1 bai hat(ok)
@@ -119,29 +119,28 @@ public class SongController {
     @GetMapping("/topview")
     public ResponseEntity<List<Song>> Top6() {
         List<Song> songList = songService.findTop6View();
-        List<Song> top6View = new ArrayList<>();
-        top6View.add(songList.get(0));
-        top6View.add(songList.get(1));
-        top6View.add(songList.get(2));
-        top6View.add(songList.get(3));
-        top6View.add(songList.get(4));
-        top6View.add(songList.get(5));
-        return new ResponseEntity<List<Song>>(top6View, HttpStatus.OK);
+        if (songList != null) {
+            return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     // top 6 bai hat moi tao
     @GetMapping("/newcreat")
     public ResponseEntity<List<Song>> newCreat() {
         List<Song> songList = songService.findTop6New();
-        List<Song> top6New = new ArrayList<>();
-        top6New.add(songList.get(0));
-        top6New.add(songList.get(1));
-        top6New.add(songList.get(2));
-        top6New.add(songList.get(3));
-        top6New.add(songList.get(4));
-        top6New.add(songList.get(5));
-        return new ResponseEntity<List<Song>>(top6New, HttpStatus.OK);
+        if (songList != null) {
+            return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+        }
+        return new ResponseEntity<List<Song>>(HttpStatus.FOUND);
     }
 
+    // tim kiem bai hat theo ten(ok)
+
+    @GetMapping("/findsong/{name}")
+    public ResponseEntity<List<Song>> findSongByName(@PathVariable("name") String name ){
+        List<Song> songList = songService.findByName(name);
+        return new ResponseEntity<List<Song>>(songList,HttpStatus.OK);
+    }
 
 }

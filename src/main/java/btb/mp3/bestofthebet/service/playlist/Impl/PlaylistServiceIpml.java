@@ -30,17 +30,17 @@ public class PlaylistServiceIpml implements PlaylistService {
 
     @Override
     public List<PlayList> sortView() {
-        return playlistRepository.findAllByOrderByViewsDesc();
+        return playlistRepository.findTop6ByOrderByViewsDesc();
     }
 
     @Override
     public List<PlayList> sortLike() {
-        return playlistRepository.findAllByOrderByLikesDesc();
+        return playlistRepository.findTop6ByOrderByLikesDesc();
     }
 
     @Override
     public List<PlayList> sortDate() {
-        return playlistRepository.findAllByOrderByCreateDateDesc();
+        return playlistRepository.findTop6ByOrderByCreateDateDesc();
     }
 
     @Override
