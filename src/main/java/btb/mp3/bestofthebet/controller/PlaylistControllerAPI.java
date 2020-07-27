@@ -44,40 +44,28 @@ public class PlaylistControllerAPI {
     @GetMapping("/topView")
     public ResponseEntity<List<PlayList>> topView() {
         List<PlayList> playListView = playlistService.sortView();
-        List<PlayList> topSixView = new ArrayList<>();
-        topSixView.add(playListView.get(0));
-        topSixView.add(playListView.get(1));
-        topSixView.add(playListView.get(2));
-        topSixView.add(playListView.get(3));
-        topSixView.add(playListView.get(4));
-        topSixView.add(playListView.get(5));
-        return new ResponseEntity<List<PlayList>>(topSixView, HttpStatus.OK);
+        if(playListView!=null){
+            return new ResponseEntity<List<PlayList>>(playListView,HttpStatus.OK)
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/topLike")
     public ResponseEntity<List<PlayList>> topLike() {
         List<PlayList> playListLike = playlistService.sortLike();
-        List<PlayList> topSixLike = new ArrayList<>();
-        topSixLike.add(playListLike.get(0));
-        topSixLike.add(playListLike.get(1));
-        topSixLike.add(playListLike.get(2));
-        topSixLike.add(playListLike.get(3));
-        topSixLike.add(playListLike.get(4));
-        topSixLike.add(playListLike.get(5));
-        return new ResponseEntity<List<PlayList>>(topSixLike, HttpStatus.OK);
+        if(playListLike!=null){
+            return new ResponseEntity<List<PlayList>>(playListLike,HttpStatus.OK)
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/topDate")
     public ResponseEntity<List<PlayList>> topDate() {
         List<PlayList> playListDate = playlistService.sortDate();
-        List<PlayList> topSixDate = new ArrayList<>();
-        topSixDate.add(playListDate.get(0));
-        topSixDate.add(playListDate.get(1));
-        topSixDate.add(playListDate.get(2));
-        topSixDate.add(playListDate.get(3));
-        topSixDate.add(playListDate.get(4));
-        topSixDate.add(playListDate.get(5));
-        return new ResponseEntity<List<PlayList>>(topSixDate, HttpStatus.OK);
+        if(playListDate!=null){
+            return new ResponseEntity<List<PlayList>>(playListDate,HttpStatus.OK)
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping("/list/{id}")

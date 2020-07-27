@@ -8,10 +8,10 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 import java.util.List;
 
 public interface PlaylistRepository extends PagingAndSortingRepository<PlayList, Long> {
-            List<PlayList> findAllByOrderByViewsDesc();
-            List<PlayList> findAllByOrderByLikesDesc();
+            List<PlayList> findTop6OrderByViewsDesc();
+            List<PlayList> findTop6OrderByLikesDesc();
 
-            List<PlayList> findAllByOrderByCreateDateDesc();
+            List<PlayList> findTop6OrderByCreateDateDesc();
 
             List<PlayList> deleteByUserId(Long id);
 
