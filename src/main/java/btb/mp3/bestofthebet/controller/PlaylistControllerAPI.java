@@ -45,7 +45,7 @@ public class PlaylistControllerAPI {
     public ResponseEntity<List<PlayList>> topView() {
         List<PlayList> playListView = playlistService.sortView();
         if(playListView!=null){
-            return new ResponseEntity<List<PlayList>>(playListView,HttpStatus.OK)
+            return new ResponseEntity<List<PlayList>>(playListView,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -54,7 +54,7 @@ public class PlaylistControllerAPI {
     public ResponseEntity<List<PlayList>> topLike() {
         List<PlayList> playListLike = playlistService.sortLike();
         if(playListLike!=null){
-            return new ResponseEntity<List<PlayList>>(playListLike,HttpStatus.OK)
+            return new ResponseEntity<List<PlayList>>(playListLike,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -63,7 +63,7 @@ public class PlaylistControllerAPI {
     public ResponseEntity<List<PlayList>> topDate() {
         List<PlayList> playListDate = playlistService.sortDate();
         if(playListDate!=null){
-            return new ResponseEntity<List<PlayList>>(playListDate,HttpStatus.OK)
+            return new ResponseEntity<List<PlayList>>(playListDate,HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
