@@ -44,8 +44,8 @@ public class PlaylistControllerAPI {
     @GetMapping("/topView")
     public ResponseEntity<List<PlayList>> topView() {
         List<PlayList> playListView = playlistService.sortView();
-        if(playListView!=null){
-            return new ResponseEntity<List<PlayList>>(playListView,HttpStatus.OK);
+        if (playListView != null) {
+            return new ResponseEntity<List<PlayList>>(playListView, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -53,8 +53,8 @@ public class PlaylistControllerAPI {
     @GetMapping("/topLike")
     public ResponseEntity<List<PlayList>> topLike() {
         List<PlayList> playListLike = playlistService.sortLike();
-        if(playListLike!=null){
-            return new ResponseEntity<List<PlayList>>(playListLike,HttpStatus.OK);
+        if (playListLike != null) {
+            return new ResponseEntity<List<PlayList>>(playListLike, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -62,8 +62,8 @@ public class PlaylistControllerAPI {
     @GetMapping("/topDate")
     public ResponseEntity<List<PlayList>> topDate() {
         List<PlayList> playListDate = playlistService.sortDate();
-        if(playListDate!=null){
-            return new ResponseEntity<List<PlayList>>(playListDate,HttpStatus.OK);
+        if (playListDate != null) {
+            return new ResponseEntity<List<PlayList>>(playListDate, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
@@ -141,10 +141,8 @@ public class PlaylistControllerAPI {
             Playlist_Song playlistSong = new Playlist_Song();
             playlistSong.setPlaylist(playList);
             playlistSong.setSong(song);
-            if(playlist_songService.findByPlaylistSong(playlistSong)==null){
-                playlist_songService.save(playlistSong);
-                return new ResponseEntity<>(HttpStatus.OK);
-            }
+            playlist_songService.save(playlistSong);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -153,12 +151,12 @@ public class PlaylistControllerAPI {
     // xoa 1 bai hat trong playlist id la id cua Playlist_Song
 
     @DeleteMapping("/deleteSonginPlaylist/{id}")
-    private ResponseEntity<Void> deleteSongInPlaylist(@PathVariable("id") Long id){
-       if(id!=null){
-           playlist_songService.delete(id);
-           return new ResponseEntity<>(HttpStatus.OK);
-       }
-       return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    private ResponseEntity<Void> deleteSongInPlaylist(@PathVariable("id") Long id) {
+        if (id != null) {
+            playlist_songService.delete(id);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
 
