@@ -27,7 +27,7 @@ public class SingerController {
     public ResponseEntity<List<Singer>> findAll() {
         return new ResponseEntity<List<Singer>>(singerService.findAll(), HttpStatus.OK);
     }
-
+    // luu them 1 ca si
     @PostMapping("/save")
     public ResponseEntity<Void> saveSinger(@RequestBody Singer singer) {
         if (singer != null) {
@@ -52,5 +52,13 @@ public class SingerController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
+
+    //lay danh sach ca si
+    @GetMapping("/showsinger")
+    public ResponseEntity<List<Singer>> showAllSinger(){
+        List<Singer> singerList = singerService.findAll();
+        return new ResponseEntity<List<Singer>>(singerList,HttpStatus.OK);
+    }
+
 
 }
