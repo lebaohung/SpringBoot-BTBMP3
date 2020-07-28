@@ -164,7 +164,8 @@ public class SongController {
 
     // them 1 comment vao song
     @PostMapping("/savecommentSong")
-    private ResponseEntity<Void> saveCommentSong(@RequestBody Comment_Song comment_song) {
+    @Transactional
+    public ResponseEntity<Void> saveCommentSong(@RequestBody Comment_Song comment_song) {
         if (comment_song != null) {
             comment_song.setDate(new Timestamp(new Date().getTime()));
             commentSongService.save(comment_song);
