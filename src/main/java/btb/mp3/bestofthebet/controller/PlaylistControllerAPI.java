@@ -11,13 +11,17 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
+
+import static jdk.nashorn.internal.objects.NativeDate.setDate;
 
 @RestController
 @CrossOrigin(origins = "*")
@@ -170,8 +174,9 @@ public class PlaylistControllerAPI {
     // them 1 comment vao playlist
     @PostMapping("/savecommentPlaylist")
     private ResponseEntity<Void> saveCommentPlaylist(@RequestBody Comment_Playlist comment_playlist) {
+        LocalDateTime localDateTime = LocalDateTime.now();
         if (comment_playlist != null) {
-            comment_playlist.setDate(new Timestamp(new Date().getTime()));
+            comment_playlist.setDate(localDateTime);
             commentPlayListService.save(comment_playlist);
             return new ResponseEntity<>(HttpStatus.OK);
         }
