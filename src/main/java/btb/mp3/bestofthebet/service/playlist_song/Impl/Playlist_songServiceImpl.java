@@ -37,7 +37,10 @@ public class Playlist_songServiceImpl implements Playlist_songService {
         return playlistSongRepository.findById(id).get();
     }
 
-
+    @Override
+    public void deleteBySong(Song song) {
+        playlistSongRepository.deleteBySong(song);
+    }
 
 
 }

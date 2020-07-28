@@ -56,9 +56,7 @@ public class SongController {
         }
         singerAndSongService.deleteBySong(song);
         songService.delete(id);
-        if(playlist_songService.findById(id)!=null){
-            playlist_songService.delete(id);
-        }
+        playlist_songService.deleteBySong(song);
         return new ResponseEntity<Song>(song, HttpStatus.OK);
     }
 
@@ -146,17 +144,17 @@ public class SongController {
     // tim kiem bai hat theo ten(ok)
 
     @GetMapping("/findsong/{name}")
-    public ResponseEntity<List<Song>> findSongByName(@PathVariable("name") String name ){
+    public ResponseEntity<List<Song>> findSongByName(@PathVariable("name") String name) {
         List<Song> songList = songService.findByName(name);
-        return new ResponseEntity<List<Song>>(songList,HttpStatus.OK);
+        return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
     }
 
     // hien thi comment theo id song
 
     @GetMapping("/showcomment/{id}")
-    private ResponseEntity<Song> showComment(@PathVariable("id") Long id){
+    private ResponseEntity<Song> showComment(@PathVariable("id") Long id) {
         Song song = songService.findById(id).get();
-        return new ResponseEntity<>(song,HttpStatus.OK);
+        return new ResponseEntity<>(song, HttpStatus.OK);
 //        if (song!= null){
 //            List<Comment_Song> comment_playlists = commentSongService.showCommentsBySong(song);
 //            return new ResponseEntity<List<Comment_Song>>(comment_playlists,HttpStatus.OK);
@@ -166,8 +164,8 @@ public class SongController {
 
     // them 1 comment vao song
     @PostMapping("/savecommentSong")
-    private ResponseEntity<Void> saveCommentSong(@RequestBody Comment_Song comment_song){
-        if(comment_song != null){
+    private ResponseEntity<Void> saveCommentSong(@RequestBody Comment_Song comment_song) {
+        if (comment_song != null) {
             comment_song.setDate(new Timestamp(new Date().getTime()));
             commentSongService.save(comment_song);
             return new ResponseEntity<>(HttpStatus.OK);
