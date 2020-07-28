@@ -43,7 +43,7 @@ public class Playlist_songServiceImpl implements Playlist_songService {
     }
 
     @Override
-    public Number findByPlaylistSong(Playlist_Song playlistSong) {
-        return null;
+    public Playlist_Song findByPlaylistAndSong(PlayList playList, Song song) {
+        return playlistSongRepository.findByPlaylistAndSong(playList,song);
     }
 }
