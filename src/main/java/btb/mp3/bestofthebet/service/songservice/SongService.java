@@ -52,6 +52,11 @@ public class SongService implements ISongService {
     }
 
     @Override
+    public List<Song> findTop6Liked() {
+        return songRepository.findTop6ByOrderByLikesDesc();
+    }
+
+    @Override
     public Song findByCreatDate(Date date) {
         return songRepository.findAllByCreatDate(date);
     }
