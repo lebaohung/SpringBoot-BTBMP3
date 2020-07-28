@@ -145,10 +145,11 @@ public class PlaylistControllerAPI {
             Playlist_Song playlistSong = new Playlist_Song();
             playlistSong.setPlaylist(playList);
             playlistSong.setSong(song);
-            if(playlist_songService.findByPlaylistSong(playlistSong)==null){
-                playlist_songService.save(playlistSong);
+            if(playlist_songService.findByPlaylistAndSong(playList,song)!=null){
                 return new ResponseEntity<>(HttpStatus.OK);
             }
+            playlist_songService.save(playlistSong);
+            return new ResponseEntity<>(HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
@@ -165,10 +166,11 @@ public class PlaylistControllerAPI {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
+
     // them 1 comment vao playlist
     @PostMapping("/savecommentPlaylist")
-    private ResponseEntity<Void> saveCommentPlaylist(@RequestBody Comment_Playlist comment_playlist){
-        if(comment_playlist != null){
+    private ResponseEntity<Void> saveCommentPlaylist(@RequestBody Comment_Playlist comment_playlist) {
+        if (comment_playlist != null) {
             comment_playlist.setDate(new Timestamp(new Date().getTime()));
             commentPlayListService.save(comment_playlist);
             return new ResponseEntity<>(HttpStatus.OK);
@@ -180,11 +182,11 @@ public class PlaylistControllerAPI {
     // hien thi comment theo id playlist(ok)
 
     @GetMapping("/showcomment/{id}")
-    private ResponseEntity<List<Comment_Playlist>> showComment(@PathVariable("id") Long id){
+    private ResponseEntity<List<Comment_Playlist>> showComment(@PathVariable("id") Long id) {
         PlayList playList = playlistService.findById(id).get();
-        if (playList!= null){
+        if (playList != null) {
             List<Comment_Playlist> comment_playlists = commentPlayListService.showCommentByPlaylist(playList);
-            return new ResponseEntity<List<Comment_Playlist>>(comment_playlists,HttpStatus.OK);
+            return new ResponseEntity<List<Comment_Playlist>>(comment_playlists, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

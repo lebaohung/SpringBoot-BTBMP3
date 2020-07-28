@@ -41,4 +41,9 @@ public class Playlist_songServiceImpl implements Playlist_songService {
     public void deleteBySong(Song song) {
         playlistSongRepository.deleteBySong(song);
     }
+
+    @Override
+    public Playlist_Song findByPlaylistAndSong(PlayList playList, Song song) {
+        return playlistSongRepository.findByPlaylistAndSong(playList,song);
+    }
 }
