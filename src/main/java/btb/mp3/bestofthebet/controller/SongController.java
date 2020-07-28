@@ -152,14 +152,14 @@ public class SongController {
     // hien thi comment theo id song
 
     @GetMapping("/showcomment/{id}")
-    private ResponseEntity<Song> showComment(@PathVariable("id") Long id) {
+    @Transactional
+    public ResponseEntity<List<Comment_Song>> showComment(@PathVariable("id") Long id) {
         Song song = songService.findById(id).get();
-        return new ResponseEntity<>(song, HttpStatus.OK);
-//        if (song!= null){
-//            List<Comment_Song> comment_playlists = commentSongService.showCommentsBySong(song);
-//            return new ResponseEntity<List<Comment_Song>>(comment_playlists,HttpStatus.OK);
-//        }
-//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        if (song!= null){
+            List<Comment_Song> comment_playlists = commentSongService.showCommentsBySong(song);
+            return new ResponseEntity<List<Comment_Song>>(comment_playlists,HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     // them 1 comment vao song
