@@ -41,6 +41,4 @@ public class Playlist_songServiceImpl implements Playlist_songService {
     public void deleteBySong(Song song) {
         playlistSongRepository.deleteBySong(song);
     }
-
-
 }

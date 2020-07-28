@@ -15,6 +15,8 @@ public interface ISongService extends IService<Song> {
 
     List<Song> findTop6New();
 
+    List<Song> findTop6Liked();
+
     Song findByCreatDate(Date date);
 
     List<Song> findByName(String name);

@@ -17,4 +17,5 @@ public interface Playlist_songService {
 
     void deleteBySong(Song song);
 
+    Number findByPlaylistSong(Playlist_Song playlistSong);
 }

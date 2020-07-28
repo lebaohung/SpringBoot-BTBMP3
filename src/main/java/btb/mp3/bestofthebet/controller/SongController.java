@@ -131,6 +131,15 @@ public class SongController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    @GetMapping("/topliked")
+    public ResponseEntity<List<Song>> topLiked() {
+        List<Song> songList = songService.findTop6Liked();
+        if (songList != null) {
+            return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+        }
+        return new ResponseEntity<List<Song>>(HttpStatus.NOT_FOUND);
+    }
+
     // top 6 bai hat moi tao
     @GetMapping("/newcreat")
     public ResponseEntity<List<Song>> newCreat() {
@@ -155,9 +164,9 @@ public class SongController {
     @Transactional
     public ResponseEntity<List<Comment_Song>> showComment(@PathVariable("id") Long id) {
         Song song = songService.findById(id).get();
-        if (song!= null){
+        if (song != null) {
             List<Comment_Song> comment_playlists = commentSongService.showCommentsBySong(song);
-            return new ResponseEntity<List<Comment_Song>>(comment_playlists,HttpStatus.OK);
+            return new ResponseEntity<List<Comment_Song>>(comment_playlists, HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }

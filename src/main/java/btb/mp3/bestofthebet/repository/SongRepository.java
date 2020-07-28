@@ -13,6 +13,8 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     List<Song> findTop6ByOrderByViewsDesc();
 
+    List<Song> findTop6ByOrderByLikesDesc();
+
     List<Song> findTop6ByOrderByCreatDateDesc();
 
     List<Song> deleteByUserId(Long id);
