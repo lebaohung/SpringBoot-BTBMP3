@@ -1,8 +1,11 @@
 package btb.mp3.bestofthebet.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
@@ -11,7 +14,7 @@ import java.util.Date;
 public class Comment_Playlist {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Long id;
 
@@ -19,7 +22,8 @@ public class Comment_Playlist {
     private String content;
 
     @Column (nullable = false)
-    private Date date;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
+    private LocalDateTime date;
 
     @ManyToOne
     private User user;

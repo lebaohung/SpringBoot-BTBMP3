@@ -19,6 +19,7 @@ import org.springframework.web.bind.annotation.*;
 import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -175,8 +176,10 @@ public class SongController {
     @PostMapping("/savecommentSong")
     @Transactional
     public ResponseEntity<Void> saveCommentSong(@RequestBody Comment_Song comment_song) {
+        LocalDateTime localDateTime = LocalDateTime.now();
         if (comment_song != null) {
-            comment_song.setDate(new Timestamp(new Date().getTime()));
+            comment_song.setDate(localDateTime);
+//            comment_song.setDate(new Timestamp(new Date().getTime()));
             commentSongService.save(comment_song);
             return new ResponseEntity<>(HttpStatus.OK);
         }
