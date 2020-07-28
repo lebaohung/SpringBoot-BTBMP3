@@ -45,6 +45,7 @@ public class PlaylistControllerAPI {
     @GetMapping("/topView")
     public ResponseEntity<List<PlayList>> topView() {
         List<PlayList> playListView = playlistService.sortView();
+
         if (playListView != null) {
             return new ResponseEntity<List<PlayList>>(playListView, HttpStatus.OK);
         }
@@ -54,6 +55,7 @@ public class PlaylistControllerAPI {
     @GetMapping("/topLike")
     public ResponseEntity<List<PlayList>> topLike() {
         List<PlayList> playListLike = playlistService.sortLike();
+
         if (playListLike != null) {
             return new ResponseEntity<List<PlayList>>(playListLike, HttpStatus.OK);
         }
@@ -63,6 +65,7 @@ public class PlaylistControllerAPI {
     @GetMapping("/topDate")
     public ResponseEntity<List<PlayList>> topDate() {
         List<PlayList> playListDate = playlistService.sortDate();
+
         if (playListDate != null) {
             return new ResponseEntity<List<PlayList>>(playListDate, HttpStatus.OK);
         }
@@ -142,8 +145,10 @@ public class PlaylistControllerAPI {
             Playlist_Song playlistSong = new Playlist_Song();
             playlistSong.setPlaylist(playList);
             playlistSong.setSong(song);
-            playlist_songService.save(playlistSong);
-            return new ResponseEntity<>(HttpStatus.OK);
+            if(playlist_songService.findByPlaylistSong(playlistSong)==null){
+                playlist_songService.save(playlistSong);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 

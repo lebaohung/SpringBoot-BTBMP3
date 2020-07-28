@@ -37,6 +37,11 @@ public class Playlist_songServiceImpl implements Playlist_songService {
         return playlistSongRepository.findById(id).get();
     }
 
+    @Override
+    public Number findByPlaylistSong(Playlist_Song playlistSong) {
+        return playlistSongRepository.findByPlaylist(playlistSong);
+    }
+
 
 
 

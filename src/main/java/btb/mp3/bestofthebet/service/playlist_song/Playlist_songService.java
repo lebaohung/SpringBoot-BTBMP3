@@ -15,5 +15,5 @@ public interface Playlist_songService {
 
     Playlist_Song findById(Long id);
 
-
+    Number findByPlaylistSong(Playlist_Song playlistSong);
 }
