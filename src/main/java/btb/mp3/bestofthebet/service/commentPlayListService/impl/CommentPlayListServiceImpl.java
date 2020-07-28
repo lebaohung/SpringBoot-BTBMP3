@@ -36,6 +36,6 @@ public class CommentPlayListServiceImpl implements ICommentPlayListService {
 
     @Override
     public List<Comment_Playlist> showCommentByPlaylist(PlayList playList) {
-        return commentPlayListRepository.findAllByPlaylist(playList);
+        return commentPlayListRepository.findAllByPlaylistOrderByDateDesc(playList);
     }
 }

@@ -24,7 +24,7 @@ public class SingerService implements ISingerService{
 
     @Override
     public void save(Singer model) {
-
+        singerRepository.save(model);
     }
 
     @Override

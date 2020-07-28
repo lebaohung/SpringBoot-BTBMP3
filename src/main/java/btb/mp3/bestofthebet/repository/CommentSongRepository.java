@@ -12,6 +12,6 @@ public interface CommentSongRepository extends JpaRepository<Comment_Song, Long>
 
     List<Comment_Song> deleteByUserId(Long id);
 
-    List<Comment_Song> findAllBySong(Song song);
+    List<Comment_Song> findAllBySongOrderByDateDesc(Song song);
 
 }

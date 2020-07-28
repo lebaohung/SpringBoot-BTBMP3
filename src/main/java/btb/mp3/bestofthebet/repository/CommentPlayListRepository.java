@@ -12,5 +12,5 @@ public interface CommentPlayListRepository extends JpaRepository<Comment_Playlis
 
     List<Comment_Playlist> deleteByUserId(Long id);
 
-    List<Comment_Playlist> findAllByPlaylist(PlayList playlist);
+    List<Comment_Playlist> findAllByPlaylistOrderByDateDesc(PlayList playlist);
 }

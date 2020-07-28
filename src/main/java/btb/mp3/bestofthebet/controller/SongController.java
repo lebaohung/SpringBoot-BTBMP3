@@ -3,6 +3,7 @@ package btb.mp3.bestofthebet.controller;
 import btb.mp3.bestofthebet.model.*;
 import btb.mp3.bestofthebet.model.response.MessageResponse;
 import btb.mp3.bestofthebet.service.commentsong.ICommentSongService;
+import btb.mp3.bestofthebet.service.playlist_song.Playlist_songService;
 import btb.mp3.bestofthebet.service.singer.ISingerService;
 import btb.mp3.bestofthebet.service.singerAndSongService.ISingerAndSongService;
 import btb.mp3.bestofthebet.service.songservice.ISongService;
@@ -42,6 +43,9 @@ public class SongController {
     @Autowired
     ICommentSongService commentSongService;
 
+    @Autowired
+    private Playlist_songService playlist_songService;
+
     // xoa bai hat theo id bai hat (ok)
     @DeleteMapping("/{id}")
     @Transactional
@@ -51,6 +55,7 @@ public class SongController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         singerAndSongService.deleteBySong(song);
+        playlist_songService.delete(id);
         songService.delete(id);
         return new ResponseEntity<Song>(song, HttpStatus.OK);
     }

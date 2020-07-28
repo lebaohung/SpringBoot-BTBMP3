@@ -35,6 +35,6 @@ public class CommentSongService implements ICommentSongService {
 
     @Override
     public List<Comment_Song> showCommentsBySong(Song song) {
-        return commentSongRepository.findAllBySong(song);
+        return commentSongRepository.findAllBySongOrderByDateDesc(song);
     }
 }
