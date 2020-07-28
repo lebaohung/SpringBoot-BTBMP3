@@ -55,8 +55,10 @@ public class SongController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
         singerAndSongService.deleteBySong(song);
-        playlist_songService.delete(id);
         songService.delete(id);
+        if(playlist_songService.findById(id)!=null){
+            playlist_songService.delete(id);
+        }
         return new ResponseEntity<Song>(song, HttpStatus.OK);
     }
 
@@ -152,13 +154,14 @@ public class SongController {
     // hien thi comment theo id song
 
     @GetMapping("/showcomment/{id}")
-    private ResponseEntity<List<Comment_Song>> showComment(@PathVariable("id") Long id){
+    private ResponseEntity<Song> showComment(@PathVariable("id") Long id){
         Song song = songService.findById(id).get();
-        if (song!= null){
-            List<Comment_Song> comment_playlists = commentSongService.showCommentsBySong(song);
-            return new ResponseEntity<List<Comment_Song>>(comment_playlists,HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        return new ResponseEntity<>(song,HttpStatus.OK);
+//        if (song!= null){
+//            List<Comment_Song> comment_playlists = commentSongService.showCommentsBySong(song);
+//            return new ResponseEntity<List<Comment_Song>>(comment_playlists,HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     // them 1 comment vao song
