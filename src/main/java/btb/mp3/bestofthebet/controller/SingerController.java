@@ -33,9 +33,13 @@ public class SingerController {
     @PostMapping("/save")
     public ResponseEntity<Void> saveSinger(@RequestBody Singer singer) {
         if (singer != null) {
-            singer.setCreateDate(new Timestamp(new Date().getTime()));
-            singerService.save(singer);
-            return new ResponseEntity<>(HttpStatus.OK);
+            List<Singer> singerList = singerService.findSingerByName(singer.getName());
+            if(singerList.size() == 0){
+                singer.setCreateDate(new Timestamp(new Date().getTime()));
+                singerService.save(singer);
+                return new ResponseEntity<>(HttpStatus.OK);
+            }
+            return new ResponseEntity<>(HttpStatus.CONFLICT);
         }
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
