@@ -63,7 +63,7 @@ public class SongService implements ISongService {
 
     @Override
     public List<Song> findByName(String name) {
-        return songRepository.findAllByNameEquals(name);
+        return songRepository.findAllByNameContaining(name);
     }
 
 }

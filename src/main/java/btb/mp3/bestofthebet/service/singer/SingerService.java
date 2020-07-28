@@ -31,4 +31,9 @@ public class SingerService implements ISingerService{
     public void delete(Long id) {
 
     }
+
+    @Override
+    public List<Singer> findSingerByName(String name) {
+        return singerRepository.findAllByNameContaining(name);
+    }
 }

@@ -60,5 +60,13 @@ public class SingerController {
         return new ResponseEntity<List<Singer>>(singerList,HttpStatus.OK);
     }
 
+    // tim kiem ca si theo ten
+
+    @GetMapping("/findsinger/{name}")
+    public ResponseEntity<List<Singer>> findSingerByName(@PathVariable("name") String name){
+        List<Singer> singerList = singerService.findSingerByName(name);
+        return new ResponseEntity<List<Singer>>(singerList,HttpStatus.OK);
+    }
+
 
 }

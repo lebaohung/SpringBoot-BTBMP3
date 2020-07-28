@@ -191,5 +191,13 @@ public class PlaylistControllerAPI {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
+    // tim kiem playlist theo ten
+
+    @GetMapping("/findplaylist/{name}")
+    private ResponseEntity<List<PlayList>> findPlaylistByName(@PathVariable("name") String name){
+        List<PlayList> playLists = playlistService.findPlaylistByName(name);
+        return new ResponseEntity<List<PlayList>>(playLists,HttpStatus.OK);
+    }
+
 
 }

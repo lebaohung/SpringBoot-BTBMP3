@@ -23,4 +23,5 @@ public interface PlaylistService {
     void remove(Long id);
 
     List<PlayList> deleteByUserId(Long id);
+    List<PlayList> findPlaylistByName(String name);
 }
