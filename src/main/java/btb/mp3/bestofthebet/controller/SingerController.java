@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -31,6 +33,7 @@ public class SingerController {
     @PostMapping("/save")
     public ResponseEntity<Void> saveSinger(@RequestBody Singer singer) {
         if (singer != null) {
+            singer.setCreateDate(new Timestamp(new Date().getTime()));
             singerService.save(singer);
             return new ResponseEntity<>(HttpStatus.OK);
         }
