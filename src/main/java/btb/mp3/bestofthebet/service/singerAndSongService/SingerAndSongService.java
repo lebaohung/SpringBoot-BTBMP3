@@ -1,5 +1,6 @@
 package btb.mp3.bestofthebet.service.singerAndSongService;
 
+import btb.mp3.bestofthebet.model.Singer;
 import btb.mp3.bestofthebet.model.Singer_And_song;
 import btb.mp3.bestofthebet.model.Song;
 import btb.mp3.bestofthebet.repository.SingerAndSongReposiory;
@@ -41,5 +42,10 @@ public class SingerAndSongService implements ISingerAndSongService{
     @Override
     public void deleteBySong(Song song) {
         singerAndSongReposiory.deleteBySong(song);
+    }
+
+    @Override
+    public List<Singer_And_song> findSingerAndSongBySinger(Singer singer) {
+        return singerAndSongReposiory.findAllBySinger(singer);
     }
 }
