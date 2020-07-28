@@ -10,7 +10,9 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @CrossOrigin(origins = "*")
@@ -27,10 +29,11 @@ public class SingerController {
     public ResponseEntity<List<Singer>> findAll() {
         return new ResponseEntity<List<Singer>>(singerService.findAll(), HttpStatus.OK);
     }
-
+    // luu them 1 ca si
     @PostMapping("/save")
     public ResponseEntity<Void> saveSinger(@RequestBody Singer singer) {
         if (singer != null) {
+            singer.setCreateDate(new Timestamp(new Date().getTime()));
             singerService.save(singer);
             return new ResponseEntity<>(HttpStatus.OK);
         }
@@ -52,5 +55,21 @@ public class SingerController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 
     }
+
+    //lay danh sach ca si
+    @GetMapping("/showsinger")
+    public ResponseEntity<List<Singer>> showAllSinger(){
+        List<Singer> singerList = singerService.findAll();
+        return new ResponseEntity<List<Singer>>(singerList,HttpStatus.OK);
+    }
+
+    // tim kiem ca si theo ten
+
+    @GetMapping("/findsinger/{name}")
+    public ResponseEntity<List<Singer>> findSingerByName(@PathVariable("name") String name){
+        List<Singer> singerList = singerService.findSingerByName(name);
+        return new ResponseEntity<List<Singer>>(singerList,HttpStatus.OK);
+    }
+
 
 }

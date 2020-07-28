@@ -21,5 +21,6 @@ public interface SongRepository extends JpaRepository<Song, Long> {
 
     Song findAllByCreatDate(Date date);
 
-    List<Song> findAllByNameEquals(String name);
+    List<Song> findAllByNameContaining(String name);
+
 }
