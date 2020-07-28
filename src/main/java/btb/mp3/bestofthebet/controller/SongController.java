@@ -1,10 +1,8 @@
 package btb.mp3.bestofthebet.controller;
 
-import btb.mp3.bestofthebet.model.Singer;
-import btb.mp3.bestofthebet.model.Singer_And_song;
-import btb.mp3.bestofthebet.model.Song;
-import btb.mp3.bestofthebet.model.User;
+import btb.mp3.bestofthebet.model.*;
 import btb.mp3.bestofthebet.model.response.MessageResponse;
+import btb.mp3.bestofthebet.service.commentsong.ICommentSongService;
 import btb.mp3.bestofthebet.service.singer.ISingerService;
 import btb.mp3.bestofthebet.service.singerAndSongService.ISingerAndSongService;
 import btb.mp3.bestofthebet.service.songservice.ISongService;
@@ -41,7 +39,10 @@ public class SongController {
     @Autowired
     UserService userService;
 
-    // xoa bai hat theo id bai hat (can xem xet)
+    @Autowired
+    ICommentSongService commentSongService;
+
+    // xoa bai hat theo id bai hat (ok)
     @DeleteMapping("/{id}")
     @Transactional
     public ResponseEntity<Song> deleteSong(@PathVariable("id") Long id) {
@@ -138,9 +139,32 @@ public class SongController {
     // tim kiem bai hat theo ten(ok)
 
     @GetMapping("/findsong/{name}")
-    public ResponseEntity<List<Song>> findSongByName(@PathVariable("name") String name ){
+    public ResponseEntity<List<Song>> findSongByName(@PathVariable("name") String name) {
         List<Song> songList = songService.findByName(name);
-        return new ResponseEntity<List<Song>>(songList,HttpStatus.OK);
+        return new ResponseEntity<List<Song>>(songList, HttpStatus.OK);
+    }
+
+    // hien thi comment theo id song
+
+    @GetMapping("/showcomment/{id}")
+    private ResponseEntity<List<Comment_Song>> showComment(@PathVariable("id") Long id) {
+        Song song = songService.findById(id).get();
+        if (song != null) {
+            List<Comment_Song> comment_playlists = commentSongService.showCommentsBySong(song);
+            return new ResponseEntity<List<Comment_Song>>(comment_playlists, HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    // them 1 comment vao song
+    @PostMapping("/savecommentSong")
+    private ResponseEntity<Void> saveCommentSong(@RequestBody Comment_Song comment_song) {
+        if (comment_song != null) {
+            comment_song.setDate(new Timestamp(new Date().getTime()));
+            commentSongService.save(comment_song);
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
 }
