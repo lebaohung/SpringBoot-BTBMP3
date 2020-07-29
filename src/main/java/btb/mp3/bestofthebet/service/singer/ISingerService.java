@@ -7,4 +7,5 @@ import java.util.List;
 
 public interface ISingerService extends IService<Singer> {
     List<Singer> findSingerByName(String name);
+    List<Singer> findAllByNameEquals(String name);
 }

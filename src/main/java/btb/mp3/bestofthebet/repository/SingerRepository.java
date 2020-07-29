@@ -8,4 +8,5 @@ import java.util.List;
 
 public interface SingerRepository extends JpaRepository<Singer,Long> {
     List<Singer> findAllByNameContaining(String name);
+    List<Singer> findAllByNameEquals(String name);
 }
