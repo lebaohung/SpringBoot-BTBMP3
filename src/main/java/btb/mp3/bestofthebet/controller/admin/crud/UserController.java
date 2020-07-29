@@ -10,7 +10,6 @@ import btb.mp3.bestofthebet.service.commentSingerService.impl.CommentSingerServi
 import btb.mp3.bestofthebet.service.commentsong.ICommentSongService;
 import btb.mp3.bestofthebet.service.playlist.PlaylistService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
