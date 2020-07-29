@@ -36,4 +36,9 @@ public class SingerService implements ISingerService{
     public List<Singer> findSingerByName(String name) {
         return singerRepository.findAllByNameContaining(name);
     }
+
+    @Override
+    public List<Singer> findAllByNameEquals(String name) {
+        return singerRepository.findAllByNameEquals(name);
+    }
 }
