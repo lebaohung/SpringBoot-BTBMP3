@@ -11,7 +11,7 @@ import java.util.Date;
 public class Singer {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Long id;
     private String name;
