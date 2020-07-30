@@ -11,5 +11,7 @@ public interface UserService extends IService<User> {
 
     User finByID(Long id);
 
-    List<Object> statisticUsersByCreateDate();
+    List<Object> findTop7ByCreateDate();
+
+    List<Object> findByMonth();
 }

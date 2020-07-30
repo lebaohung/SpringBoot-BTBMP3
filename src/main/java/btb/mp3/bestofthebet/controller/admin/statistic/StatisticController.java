@@ -11,9 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 /*@CrossOrigin("http://localhost:4201")*/
 @CrossOrigin("*")
@@ -29,9 +27,15 @@ public class StatisticController {
 
     @GetMapping("/users-date")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public ResponseEntity<List<Object>> getStatisticNewRegister() {
-        List<Object> test = userRepository.findAllUsersByCreateDate();
-        return ResponseEntity.ok(test);
+    public ResponseEntity<List<Object>> getRegisterTop7ByCreatDate() {
+        List<Object> result = userService.findTop7ByCreateDate();
+        return ResponseEntity.ok(result);
+    }
 
+    @GetMapping("/users-month")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public ResponseEntity<List<Object>> getRegisterByMonth() {
+        List<Object> result = userService.findByMonth();
+        return ResponseEntity.ok(result);
     }
 }
