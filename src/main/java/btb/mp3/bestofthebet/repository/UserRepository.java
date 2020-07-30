@@ -19,4 +19,5 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     @Query("Select user.createDate, count(user) from User user group by function('date', user.createDate)")
     List<Object> findAllUsersByCreateDate();
+
 }

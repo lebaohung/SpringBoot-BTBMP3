@@ -6,6 +6,7 @@ import javax.persistence.Column;
 /*import javax.persistence.ManyToOne;*/
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 import java.util.Date;
@@ -13,30 +14,33 @@ import java.util.Set;
 
 public class SignupRequest {
 
-/*    @NotBlank*/
+    @NotNull
+    @NotBlank
     @Size(min = 6, max = 30)
     private String username;
 
-/*    @NotBlank*/
+    @NotNull
+    @NotBlank
     @Size(min = 6, max = 120)
     private String password;
 
-/*    @NotBlank*/
+    /*    @NotBlank*/
     @Size(max = 100)
     private String full_name;
 
     @Size(max = 100)
     private String phone_number;
 
-/*    @NotBlank*/
+    @NotNull
+    @NotBlank
     @Size(max = 50)
     @Email
     private String email;
 
-/*    @NotBlank*/
+    /*    @NotBlank*/
     private Boolean status;
 
-/*    @NotBlank*/
+    /*    @NotBlank*/
     private Date birthday;
 
     @Column(nullable = false)
@@ -44,9 +48,9 @@ public class SignupRequest {
 
     private Set<String> roles;
 
-/*    public SignupRequest() {}*/
+    /*    public SignupRequest() {}*/
 
-    public SignupRequest(String phone_number, @NotBlank @Size(max = 100) String full_name, @NotBlank @Size(min = 6, max = 30) String username, @NotBlank @Size(min = 6, max = 120) String password, @NotBlank @Size(max = 50) @Email String email, @NotBlank Boolean status, @NotBlank Date birthday, Timestamp createDate) {
+    public SignupRequest(String phone_number, @NotBlank @Size(max = 100) String full_name, @NotNull @NotBlank @Size(min = 6, max = 30) String username, @NotNull @NotBlank @Size(min = 6, max = 120) String password, @NotNull @NotBlank @Size(max = 50) @Email String email, @NotBlank Boolean status, @NotBlank Date birthday, Timestamp createDate) {
         this.username = username;
         this.full_name = full_name;
         this.password = password;
