@@ -1,5 +1,6 @@
 package btb.mp3.bestofthebet.controller;
 
+import btb.mp3.bestofthebet.model.PlayList;
 import btb.mp3.bestofthebet.model.Singer;
 import btb.mp3.bestofthebet.model.Singer_And_song;
 import btb.mp3.bestofthebet.model.Song;
@@ -15,6 +16,7 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @CrossOrigin(origins = "*")
 @RestController
@@ -30,6 +32,15 @@ public class SingerController {
     public ResponseEntity<List<Singer>> findAll() {
         return new ResponseEntity<List<Singer>>(singerService.findAll(), HttpStatus.OK);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Singer> findSingerById(@PathVariable("id") Long id) {
+        if (singerService.findById(id).get() != null) {
+            return new ResponseEntity<Singer>(singerService.findById(id).get(), HttpStatus.OK);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     // luu them 1 ca si
     @PostMapping("/save")
     public ResponseEntity<Void> saveSinger(@RequestBody Singer singer) {
