@@ -8,6 +8,7 @@ import btb.mp3.bestofthebet.service.singerAndSongService.ISingerAndSongService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.Timestamp;
@@ -46,6 +47,7 @@ public class SingerController {
 
     //lay danh sach bai hat theo id ca sy
     @GetMapping("/listSong/{id}")
+    @Transactional
     public ResponseEntity<List<Song>> findSongByIdSinger(@PathVariable("id") Long id) {
         Singer singer = singerService.findById(id).get();
         if(singer!= null){

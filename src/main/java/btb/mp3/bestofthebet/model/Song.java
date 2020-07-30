@@ -11,7 +11,7 @@ import java.util.Date;
 public class Song {
 
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Long id;
 
@@ -29,6 +29,8 @@ public class Song {
     private String songImage;
 
     private String songAuthor;
+
+    @Lob
     private String description;
 
     @Column (nullable = false)

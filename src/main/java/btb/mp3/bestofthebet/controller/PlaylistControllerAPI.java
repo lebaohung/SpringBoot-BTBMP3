@@ -161,14 +161,26 @@ public class PlaylistControllerAPI {
 
     // xoa 1 bai hat trong playlist id la id cua Playlist_Song
 
-    @DeleteMapping("/deleteSonginPlaylist/{id}")
-    private ResponseEntity<Void> deleteSongInPlaylist(@PathVariable("id") Long id) {
-        if (id != null) {
-            playlist_songService.delete(id);
-            return new ResponseEntity<>(HttpStatus.OK);
-        }
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//    @DeleteMapping("/deleteSonginPlaylist/{id}")
+//    private ResponseEntity<Void> deleteSongInPlaylist(@PathVariable("id") Long id) {
+//        if (id != null) {
+//            playlist_songService.delete(id);
+//            return new ResponseEntity<>(HttpStatus.OK);
+//        }
+//        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+//
+//    }
 
+    @DeleteMapping("/deleteSonginPlaylist/{playlistid}/{songid}")
+    private ResponseEntity<Void> deleteSongInPlaylist(@PathVariable("playlistid") Long playlistid, @PathVariable("songid") Long songid) {
+        PlayList playList = playlistService.findById(playlistid).get();
+        List<Playlist_Song> playlistSong = playlist_songService.finAllByPlaylist(playList);
+        for (int i = 0; i < playlistSong.size(); i++) {
+            if (playlistSong.get(i).getSong().getId() == songid) {
+                playlist_songService.delete(playlistSong.get(i).getId());
+            }
+        }
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     // them 1 comment vao playlist

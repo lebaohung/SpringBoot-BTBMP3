@@ -10,7 +10,7 @@ import java.util.Date;
 @Table (name = "comment_singer")
 public class Comment_Singer {
     @Id
-    @GeneratedValue (strategy = GenerationType.AUTO)
+    @GeneratedValue (strategy = GenerationType.IDENTITY)
     @Column (nullable = false)
     private Long id;
 
