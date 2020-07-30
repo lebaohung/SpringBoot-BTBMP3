@@ -65,6 +65,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/admin/crud-user/users/**").permitAll()
                 .antMatchers("/api/admin/crud-user/users/{id}").permitAll()
                 .antMatchers("/api/admin/statistic/users-date/**").permitAll()
+                .antMatchers("/api/admin/statistic/users-month/**").permitAll()
                 .anyRequest().authenticated();
 
         http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
