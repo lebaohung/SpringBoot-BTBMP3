@@ -47,7 +47,7 @@ public class SingerController {
 
     //lay danh sach bai hat theo id ca sy
     @GetMapping("/listSong/{id}")
-//    @Transactional
+    @Transactional
     public ResponseEntity<List<Song>> findSongByIdSinger(@PathVariable("id") Long id) {
         Singer singer = singerService.findById(id).get();
         if(singer!= null){

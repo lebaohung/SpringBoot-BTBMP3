@@ -43,6 +43,11 @@ public class Playlist_songServiceImpl implements Playlist_songService {
     }
 
     @Override
+    public List<Playlist_Song> finAllByPlaylist(PlayList playList) {
+        return playlistSongRepository.findAllByPlaylist(playList);
+    }
+
+    @Override
     public Playlist_Song findByPlaylistAndSong(PlayList playList, Song song) {
         return playlistSongRepository.findByPlaylistAndSong(playList,song);
     }

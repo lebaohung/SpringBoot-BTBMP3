@@ -29,6 +29,8 @@ public class Song {
     private String songImage;
 
     private String songAuthor;
+
+    @Lob
     private String description;
 
     @Column (nullable = false)

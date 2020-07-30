@@ -17,5 +17,7 @@ public interface Playlist_songService {
 
     void deleteBySong(Song song);
 
+    List<Playlist_Song> finAllByPlaylist (PlayList playList);
+
     Playlist_Song findByPlaylistAndSong(PlayList playList,Song song);
 }
