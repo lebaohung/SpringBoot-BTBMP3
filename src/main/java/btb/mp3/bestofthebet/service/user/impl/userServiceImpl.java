@@ -39,7 +39,17 @@ public class userServiceImpl implements UserService {
     public void delete(Long id) {}
 
     @Override
-    public List<Object> statisticUsersByCreateDate() {
-        return userRepository.findAllUsersByCreateDate();
+    public List<Object> findTop7ByCreateDate() {
+        String queryStr = "Select user.createDate, count(user) from User user group by function('date', user.createDate) order by user.createDate desc";
+        Query query = entityManager.createQuery(queryStr);
+        List<Object> result = (List<Object>)query.setMaxResults(7).getResultList();
+        return result;
+    }
+
+    public List<Object> findByMonth() {
+        String queryStr = "Select user.createDate, count(user) from User user group by function('month', user.createDate) order by user.createDate desc";
+        Query query = entityManager.createQuery(queryStr);
+        List<Object> result = (List<Object>)query.getResultList();
+        return result;
     }
 }
